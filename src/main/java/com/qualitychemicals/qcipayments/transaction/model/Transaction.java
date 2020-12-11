@@ -25,6 +25,8 @@ public class Transaction {
     private String acctTo;
     private String userName;
     @Enumerated(EnumType.STRING)
+    private TransactionCat category;
+    @Enumerated(EnumType.STRING)
     private TransactionStatus status;
     @Enumerated(EnumType.STRING)
     private TransactionType transactionType;

@@ -1,14 +1,13 @@
 package com.qualitychemicals.qcipayments.transaction.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.qualitychemicals.qcipayments.transaction.model.TransactionCat;
 import com.qualitychemicals.qcipayments.transaction.model.TransactionStatus;
 import com.qualitychemicals.qcipayments.transaction.model.TransactionType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -27,6 +26,7 @@ public class TransactionDto {
     private String acctTo;
     @NotNull (message ="userName cannot be Blank")
     private String userName;
+    private TransactionCat category;
     private TransactionType transactionType;
     private TransactionStatus status;
 
