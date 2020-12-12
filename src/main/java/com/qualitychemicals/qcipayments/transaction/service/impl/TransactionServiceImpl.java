@@ -39,7 +39,8 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public List<Transaction> userTransactions(String userName) {
-       return transactionDao.findByUserName(userName);
+
+        return transactionDao.findByUserNameOrderByDateDesc(userName);
     }
 
     @Override
@@ -48,4 +49,13 @@ public class TransactionServiceImpl implements TransactionService {
         return mobilePayment;
     }
 
+    @Override
+    public List<Transaction> allTransactions() {
+        return transactionDao.findAll();
+    }
+
+    @Override
+    public List<Transaction> allByType(TransactionType transactionType) {
+        return transactionDao.fingByTransactionType(transactionType);
+    }
 }

@@ -2,6 +2,7 @@ package com.qualitychemicals.qcipayments.transaction.service.impl;
 
 import com.qualitychemicals.qcipayments.exceptions.ResourceNotFoundException;
 import com.qualitychemicals.qcipayments.transaction.converter.LoanTConverter;
+import com.qualitychemicals.qcipayments.transaction.dao.LoanTDao;
 import com.qualitychemicals.qcipayments.transaction.dao.TransactionDao;
 import com.qualitychemicals.qcipayments.transaction.dto.LoanPayDto;
 import com.qualitychemicals.qcipayments.transaction.dto.LoanTDto;
@@ -15,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class LoanTServiceImpl implements LoanTService {
 
@@ -24,6 +27,7 @@ public class LoanTServiceImpl implements LoanTService {
     TransactionDao transactionDao;
     @Autowired
     LoanTConverter loanTConverter;
+    @Autowired LoanTDao loanTDao;
     private final Logger logger = LoggerFactory.getLogger(LoanTServiceImpl.class);
 
     @Transactional
@@ -49,5 +53,15 @@ public class LoanTServiceImpl implements LoanTService {
     @Override
     public LoanT repayMobile(LoanPayDto loanPayDto) {
         return null;
+    }
+
+    @Override
+    public List<LoanT> loanTransactions(String userName) {
+        return loanTDao.findByUserNameOrderByDateDesc(userName);
+    }
+
+    @Override
+    public List<LoanT> getAll() {
+        return loanTDao.findAll();
     }
 }

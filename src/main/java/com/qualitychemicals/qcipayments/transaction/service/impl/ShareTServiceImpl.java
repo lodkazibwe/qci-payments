@@ -1,6 +1,7 @@
 package com.qualitychemicals.qcipayments.transaction.service.impl;
 
 import com.qualitychemicals.qcipayments.transaction.converter.ShareTConverter;
+import com.qualitychemicals.qcipayments.transaction.dao.ShareTDao;
 import com.qualitychemicals.qcipayments.transaction.dao.TransactionDao;
 import com.qualitychemicals.qcipayments.transaction.dto.ShareTDto;
 import com.qualitychemicals.qcipayments.transaction.model.ShareT;
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class ShareTServiceImpl implements ShareTService {
 
@@ -20,6 +23,7 @@ public class ShareTServiceImpl implements ShareTService {
     @Autowired
     TransactionDao transactionDao;
     @Autowired ShareTConverter shareTConverter;
+    @Autowired ShareTDao shareTDao;
     private final Logger logger = LoggerFactory.getLogger(ShareTServiceImpl.class);
 
     @Override
@@ -31,4 +35,15 @@ public class ShareTServiceImpl implements ShareTService {
         logger.info("saving transaction...");
         return transactionDao.save(shareT);
     }
+
+    @Override
+    public List<ShareT> loanTransactions(String userName) {
+        return shareTDao.findByUserNameOrderByDateDesc(userName);
+    }
+
+    @Override
+    public List<ShareT> getAll() {
+        return shareTDao.findAll();
+    }
 }
+

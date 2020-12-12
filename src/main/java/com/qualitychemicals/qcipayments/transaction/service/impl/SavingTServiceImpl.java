@@ -1,6 +1,7 @@
 package com.qualitychemicals.qcipayments.transaction.service.impl;
 
 import com.qualitychemicals.qcipayments.transaction.converter.SavingTConverter;
+import com.qualitychemicals.qcipayments.transaction.dao.SavingTDao;
 import com.qualitychemicals.qcipayments.transaction.dao.TransactionDao;
 import com.qualitychemicals.qcipayments.transaction.dto.MembershipTDto;
 import com.qualitychemicals.qcipayments.transaction.dto.SavingTDto;
@@ -13,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @Service
 public class SavingTServiceImpl implements SavingTService {
@@ -21,6 +24,7 @@ public class SavingTServiceImpl implements SavingTService {
     @Autowired
     TransactionDao transactionDao;
     @Autowired SavingTConverter savingTConverter;
+    @Autowired SavingTDao savingTDao;
     private final Logger logger = LoggerFactory.getLogger(SavingTServiceImpl.class);
     @Override
     @Transactional
@@ -29,5 +33,15 @@ public class SavingTServiceImpl implements SavingTService {
         SavingT savingT=savingTConverter.dtoToEntity(savingTDto);
         logger.info("saving transaction...");
         return transactionDao.save(savingT);
+    }
+
+    @Override
+    public List<SavingT> loanTransactions(String userName) {
+        return savingTDao.findByUserNameOrderByDateDesc(userName);
+    }
+
+    @Override
+    public List<SavingT> getAll() {
+        return savingTDao.findAll();
     }
 }

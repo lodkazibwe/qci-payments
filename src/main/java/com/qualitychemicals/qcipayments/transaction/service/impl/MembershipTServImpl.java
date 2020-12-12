@@ -1,6 +1,7 @@
 package com.qualitychemicals.qcipayments.transaction.service.impl;
 
 import com.qualitychemicals.qcipayments.transaction.converter.MembershipTConverter;
+import com.qualitychemicals.qcipayments.transaction.dao.MembershipTDao;
 import com.qualitychemicals.qcipayments.transaction.dao.TransactionDao;
 import com.qualitychemicals.qcipayments.transaction.dto.MembershipTDto;
 import com.qualitychemicals.qcipayments.transaction.model.MembershipT;
@@ -12,12 +13,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class MembershipTServImpl implements MembershipTService {
     @Autowired
     TransactionService transactionService;
     @Autowired MembershipTConverter membershipTConverter;
-
+    @Autowired
+    MembershipTDao membershipTDao;
     @Autowired
     TransactionDao transactionDao;
     private final Logger logger= LoggerFactory.getLogger(MembershipTServImpl.class);
@@ -34,5 +38,16 @@ public class MembershipTServImpl implements MembershipTService {
         MembershipT membershipT=membershipTConverter.dtoToEntity(membershipTDto);
         return transactionDao.save(membershipT);
 
+    }
+
+    @Override
+    public List<MembershipT> membershipTrans(String userName) {
+        return membershipTDao.findByUserNameOrderByDateDesc(userName);
+
+    }
+
+    @Override
+    public List<MembershipT> getAll() {
+        return membershipTDao.findAll();
     }
 }

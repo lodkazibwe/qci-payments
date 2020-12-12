@@ -3,6 +3,7 @@ package com.qualitychemicals.qcipayments.transaction.rest.v1;
 import com.qualitychemicals.qcipayments.transaction.converter.LoanTConverter;
 import com.qualitychemicals.qcipayments.transaction.dto.LoanPayDto;
 import com.qualitychemicals.qcipayments.transaction.dto.LoanTDto;
+import com.qualitychemicals.qcipayments.transaction.dto.LoanTransactionsDto;
 import com.qualitychemicals.qcipayments.transaction.model.LoanT;
 import com.qualitychemicals.qcipayments.transaction.service.LoanTService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,4 +44,18 @@ public class LoanTController {
         return new ResponseEntity<>(loanTConverter.entityToDto(loanT), HttpStatus.OK);
     }
 
+    @GetMapping("/loanTransactions/{userName}")
+    public ResponseEntity<LoanTransactionsDto> loanTransactions(@PathVariable String userName){
+
+        return  new ResponseEntity<>(new LoanTransactionsDto(loanTConverter.entityToDto
+                (loanTService.loanTransactions(userName))), HttpStatus.OK);
+
+    }
+    @GetMapping("/getAll")
+    public ResponseEntity<LoanTransactionsDto> getAll(){
+
+        return  new ResponseEntity<>(new LoanTransactionsDto(loanTConverter.entityToDto
+                (loanTService.getAll())), HttpStatus.OK);
+
+    }
 }

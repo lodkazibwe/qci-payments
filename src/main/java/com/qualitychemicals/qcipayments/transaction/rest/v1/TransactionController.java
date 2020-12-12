@@ -2,10 +2,8 @@ package com.qualitychemicals.qcipayments.transaction.rest.v1;
 
 import com.qualitychemicals.qcipayments.transaction.converter.LoanTConverter;
 import com.qualitychemicals.qcipayments.transaction.converter.TransactionConverter;
-import com.qualitychemicals.qcipayments.transaction.dto.LoanTransactionsDto;
-import com.qualitychemicals.qcipayments.transaction.dto.MobilePayment;
-import com.qualitychemicals.qcipayments.transaction.dto.TransactionDto;
-import com.qualitychemicals.qcipayments.transaction.dto.UserTransactionsDto;
+import com.qualitychemicals.qcipayments.transaction.dto.*;
+import com.qualitychemicals.qcipayments.transaction.model.TransactionType;
 import com.qualitychemicals.qcipayments.transaction.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +28,19 @@ public class TransactionController {
     public ResponseEntity<LoanTransactionsDto> loanTransactions(@PathVariable int loanId){
               return  new ResponseEntity<>(new LoanTransactionsDto(loanTConverter.entityToDto
                 (transactionService.loanTransactions(loanId))), HttpStatus.OK);
+
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<AllTransactions> allTransactions(){
+        return  new ResponseEntity<>(new AllTransactions(transactionConverter.entityToDto
+                (transactionService.allTransactions())), HttpStatus.OK);
+
+    }
+    @GetMapping("/getAll/{transactionType}")
+    public ResponseEntity<AllTransactions> allByType(@PathVariable TransactionType transactionType){
+        return  new ResponseEntity<>(new AllTransactions(transactionConverter.entityToDto
+                (transactionService.allByType(transactionType))), HttpStatus.OK);
 
     }
 
