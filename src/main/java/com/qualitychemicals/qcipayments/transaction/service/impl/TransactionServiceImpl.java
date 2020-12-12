@@ -56,6 +56,6 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public List<Transaction> allByType(TransactionType transactionType) {
-        return transactionDao.fingByTransactionType(transactionType);
+        return transactionDao.findByTransactionType(transactionType);
     }
 }

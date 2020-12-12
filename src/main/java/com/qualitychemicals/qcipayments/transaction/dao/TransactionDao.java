@@ -17,5 +17,5 @@ public interface TransactionDao extends JpaRepository<Transaction, Integer> {
     List<Transaction> findByAcctFrom(String acctFrom);
     List<Transaction> findByUserNameOrderByDateDesc(String userName);
 
-    List<Transaction> fingByTransactionType(TransactionType transactionType);
+    List<Transaction> findByTransactionType(TransactionType transactionType);
 }
