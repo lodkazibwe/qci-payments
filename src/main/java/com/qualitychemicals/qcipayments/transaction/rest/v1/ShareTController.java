@@ -1,16 +1,19 @@
 package com.qualitychemicals.qcipayments.transaction.rest.v1;
 
 import com.qualitychemicals.qcipayments.transaction.converter.ShareTConverter;
-import com.qualitychemicals.qcipayments.transaction.dto.SavingsTransactionsDto;
+import com.qualitychemicals.qcipayments.transaction.dto.DateSavingDto;
 import com.qualitychemicals.qcipayments.transaction.dto.ShareTDto;
 import com.qualitychemicals.qcipayments.transaction.dto.SharesTransactionsDto;
 import com.qualitychemicals.qcipayments.transaction.service.ShareTService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
+import java.util.List;
 
 @CrossOrigin(maxAge = 3600)
 @RestController
@@ -26,10 +29,10 @@ public class ShareTController {
     }
 
     @GetMapping("/shareTransactions/{userName}")
-    public ResponseEntity<SharesTransactionsDto> loanTransactions(@PathVariable String userName){
+    public ResponseEntity<SharesTransactionsDto> shareTransactions(@PathVariable String userName){
 
         return  new ResponseEntity<>(new SharesTransactionsDto(shareTConverter.entityToDto
-                (shareTService.loanTransactions(userName))), HttpStatus.OK);
+                (shareTService.shareTransactions(userName))), HttpStatus.OK);
 
     }
 
@@ -40,4 +43,24 @@ public class ShareTController {
                 (shareTService.getAll())), HttpStatus.OK);
 
     }
+
+    @GetMapping("/totalShares/{date}")
+    public ResponseEntity<Double> totalShares(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date){
+        return new ResponseEntity<>(shareTService.totalShares(date), HttpStatus.OK);
+    }
+
+    @GetMapping("/dateShares/{dateFrom}/{dateTo}")
+    public ResponseEntity<List<DateSavingDto>> dateShares
+            (@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateFrom,
+             @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateTo){
+        return new ResponseEntity<>(shareTService.dateShares(dateFrom, dateTo), HttpStatus.OK);
+
+    }
+
+    @GetMapping("/totalShares/{dateFrom}/{dateTo}")
+    public ResponseEntity<Double> totalShares(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateFrom,
+                                              @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateTo){
+        return new ResponseEntity<>(shareTService.totalShares(dateFrom, dateTo), HttpStatus.OK);
+    }
+
 }

@@ -18,6 +18,7 @@ public class Transaction {
     @Id
     @GeneratedValue
     private int id;
+    @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private Date date;
     private double amount;

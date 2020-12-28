@@ -1,17 +1,21 @@
 package com.qualitychemicals.qcipayments.transaction.rest.v1;
 
 import com.qualitychemicals.qcipayments.transaction.converter.LoanTConverter;
+import com.qualitychemicals.qcipayments.transaction.dto.DateSavingDto;
 import com.qualitychemicals.qcipayments.transaction.dto.LoanPayDto;
 import com.qualitychemicals.qcipayments.transaction.dto.LoanTDto;
 import com.qualitychemicals.qcipayments.transaction.dto.LoanTransactionsDto;
 import com.qualitychemicals.qcipayments.transaction.model.LoanT;
 import com.qualitychemicals.qcipayments.transaction.service.LoanTService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
+import java.util.List;
 
 @CrossOrigin(maxAge = 3600)
 @RestController
@@ -56,6 +60,24 @@ public class LoanTController {
 
         return  new ResponseEntity<>(new LoanTransactionsDto(loanTConverter.entityToDto
                 (loanTService.getAll())), HttpStatus.OK);
+    }
 
+    @GetMapping("/totalLoanPayments/{date}")
+    public ResponseEntity<Double> totalLoanPayments(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date){
+        return new ResponseEntity<>(loanTService.totalLoanPayment(date), HttpStatus.OK);
+    }
+
+    @GetMapping("/dateLoanPayments/{dateFrom}/{dateTo}")
+    public ResponseEntity<List<DateSavingDto>> dateLoanPayments
+            (@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateFrom,
+             @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateTo){
+        return new ResponseEntity<>(loanTService.dateLoanPayment(dateFrom, dateTo), HttpStatus.OK);
+
+    }
+
+    @GetMapping("/totalLoanPayments/{dateFrom}/{dateTo}")
+    public ResponseEntity<Double> totalLoanPayments(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateFrom,
+                                              @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateTo){
+        return new ResponseEntity<>(loanTService.totalLoanPayment(dateFrom, dateTo), HttpStatus.OK);
     }
 }
