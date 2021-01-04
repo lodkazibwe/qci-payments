@@ -39,7 +39,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/authenticate/get/token").permitAll()
                 .antMatchers("/transaction/**").permitAll()
-                .antMatchers("/chat/**").permitAll()
                 .antMatchers(
                         HttpMethod.GET,
                         "/",

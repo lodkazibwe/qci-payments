@@ -48,7 +48,7 @@ public class MembershipTServImpl implements MembershipTService {
 
     @Override
     public List<MembershipT> membershipTrans(String userName) {
-        return membershipTDao.findByUserNameOrderByDateDesc(userName);
+        return membershipTDao.findByUserName(userName);
 
     }
 

@@ -11,10 +11,12 @@ import java.util.List;
 
 @Repository
 public interface MembershipTDao extends JpaRepository<MembershipT, Integer> {
-    @Query("from MembershipT" )
-    List<MembershipT> findByUserNameOrderByDateDesc(String userName);
+
+    List<MembershipT> findByUserName(String userName);
 
     List<MembershipT> findByStatusAndAmountGreaterThanAndDate(TransactionStatus success, double v, Date date);
 
     List<MembershipT> findByStatusAndAmountGreaterThanAndDateLessThanEqualAndDateGreaterThanEqual(TransactionStatus success, double v, Date dateTo, Date dateFrom);
+
+    //List<MembershipT> findByUserNameOrderByDateAsc(String userName);
 }
