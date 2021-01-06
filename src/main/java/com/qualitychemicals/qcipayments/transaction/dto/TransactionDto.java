@@ -30,5 +30,4 @@ public class TransactionDto {
     private TransactionType transactionType;
     private TransactionStatus status;
 
-
 }
