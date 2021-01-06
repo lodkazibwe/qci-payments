@@ -2,6 +2,7 @@ package com.qualitychemicals.qcipayments.transaction.rest.v1;
 
 import com.qualitychemicals.qcipayments.transaction.converter.MembershipTConverter;
 import com.qualitychemicals.qcipayments.transaction.dto.DateSavingDto;
+import com.qualitychemicals.qcipayments.transaction.dto.DateTransactions;
 import com.qualitychemicals.qcipayments.transaction.dto.MembershipTDto;
 import com.qualitychemicals.qcipayments.transaction.dto.MembershipTransactionsDto;
 import com.qualitychemicals.qcipayments.transaction.service.MembershipTService;
@@ -50,10 +51,12 @@ public class MembershipTController {
     }
 
     @GetMapping("/dateMembership/{dateFrom}/{dateTo}")
-    public ResponseEntity<List<DateSavingDto>> dateMembership
+    public ResponseEntity<DateTransactions> dateMembership
             (@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateFrom,
              @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateTo){
-        return new ResponseEntity<>(membershipTService.dateMembership(dateFrom, dateTo), HttpStatus.OK);
+
+        List<DateSavingDto> dateMemberships=membershipTService.dateMembership(dateFrom, dateTo);
+        return new ResponseEntity<>(new DateTransactions(dateMemberships), HttpStatus.OK);
 
     }
 

@@ -8,6 +8,7 @@ import com.qualitychemicals.qcipayments.transaction.dto.DateSavingDto;
 import com.qualitychemicals.qcipayments.transaction.dto.LoanPayDto;
 import com.qualitychemicals.qcipayments.transaction.dto.LoanTDto;
 import com.qualitychemicals.qcipayments.transaction.model.LoanT;
+import com.qualitychemicals.qcipayments.transaction.model.TransactionCat;
 import com.qualitychemicals.qcipayments.transaction.model.TransactionStatus;
 import com.qualitychemicals.qcipayments.transaction.service.LoanTService;
 import com.qualitychemicals.qcipayments.transaction.service.TransactionService;
@@ -41,6 +42,7 @@ public class LoanTServiceImpl implements LoanTService {
         logger.info("setting transaction...");
         LoanT loanT=loanTConverter.dtoToEntity(loanTDto);
         loanT.setStatus(TransactionStatus.SUCCESS);
+        loanT.setCategory(TransactionCat.LOAN);
         return transactionDao.save(loanT);
 
     }

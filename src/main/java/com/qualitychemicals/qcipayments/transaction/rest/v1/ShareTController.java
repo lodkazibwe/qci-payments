@@ -2,6 +2,7 @@ package com.qualitychemicals.qcipayments.transaction.rest.v1;
 
 import com.qualitychemicals.qcipayments.transaction.converter.ShareTConverter;
 import com.qualitychemicals.qcipayments.transaction.dto.DateSavingDto;
+import com.qualitychemicals.qcipayments.transaction.dto.DateTransactions;
 import com.qualitychemicals.qcipayments.transaction.dto.ShareTDto;
 import com.qualitychemicals.qcipayments.transaction.dto.SharesTransactionsDto;
 import com.qualitychemicals.qcipayments.transaction.service.ShareTService;
@@ -50,10 +51,12 @@ public class ShareTController {
     }
 
     @GetMapping("/dateShares/{dateFrom}/{dateTo}")
-    public ResponseEntity<List<DateSavingDto>> dateShares
+    public ResponseEntity<DateTransactions> dateShares
             (@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateFrom,
              @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateTo){
-        return new ResponseEntity<>(shareTService.dateShares(dateFrom, dateTo), HttpStatus.OK);
+
+        List<DateSavingDto> dateShares=shareTService.dateShares(dateFrom, dateTo);
+        return new ResponseEntity<>(new DateTransactions(dateShares), HttpStatus.OK);
 
     }
 

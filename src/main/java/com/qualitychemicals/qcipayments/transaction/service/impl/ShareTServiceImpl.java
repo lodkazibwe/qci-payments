@@ -6,6 +6,7 @@ import com.qualitychemicals.qcipayments.transaction.dao.TransactionDao;
 import com.qualitychemicals.qcipayments.transaction.dto.DateSavingDto;
 import com.qualitychemicals.qcipayments.transaction.dto.ShareTDto;
 import com.qualitychemicals.qcipayments.transaction.model.ShareT;
+import com.qualitychemicals.qcipayments.transaction.model.TransactionCat;
 import com.qualitychemicals.qcipayments.transaction.model.TransactionStatus;
 import com.qualitychemicals.qcipayments.transaction.service.ShareTService;
 import com.qualitychemicals.qcipayments.transaction.service.TransactionService;
@@ -38,6 +39,7 @@ public class ShareTServiceImpl implements ShareTService {
 
         logger.info("converting...");
         ShareT shareT=shareTConverter.dtoToEntity(shareTDto);
+        shareT.setCategory(TransactionCat.SHARE);
         logger.info("saving transaction...");
         return transactionDao.save(shareT);
     }

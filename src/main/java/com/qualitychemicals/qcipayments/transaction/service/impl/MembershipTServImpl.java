@@ -6,6 +6,7 @@ import com.qualitychemicals.qcipayments.transaction.dao.TransactionDao;
 import com.qualitychemicals.qcipayments.transaction.dto.DateSavingDto;
 import com.qualitychemicals.qcipayments.transaction.dto.MembershipTDto;
 import com.qualitychemicals.qcipayments.transaction.model.MembershipT;
+import com.qualitychemicals.qcipayments.transaction.model.TransactionCat;
 import com.qualitychemicals.qcipayments.transaction.model.TransactionStatus;
 import com.qualitychemicals.qcipayments.transaction.service.MembershipTService;
 import com.qualitychemicals.qcipayments.transaction.service.TransactionService;
@@ -42,6 +43,7 @@ public class MembershipTServImpl implements MembershipTService {
 
         logger.info("converting Transaction...");
         MembershipT membershipT=membershipTConverter.dtoToEntity(membershipTDto);
+        membershipT.setCategory(TransactionCat.MEMBERSHIP);
         return transactionDao.save(membershipT);
 
     }

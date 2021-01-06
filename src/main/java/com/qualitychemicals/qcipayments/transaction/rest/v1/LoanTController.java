@@ -1,10 +1,7 @@
 package com.qualitychemicals.qcipayments.transaction.rest.v1;
 
 import com.qualitychemicals.qcipayments.transaction.converter.LoanTConverter;
-import com.qualitychemicals.qcipayments.transaction.dto.DateSavingDto;
-import com.qualitychemicals.qcipayments.transaction.dto.LoanPayDto;
-import com.qualitychemicals.qcipayments.transaction.dto.LoanTDto;
-import com.qualitychemicals.qcipayments.transaction.dto.LoanTransactionsDto;
+import com.qualitychemicals.qcipayments.transaction.dto.*;
 import com.qualitychemicals.qcipayments.transaction.model.LoanT;
 import com.qualitychemicals.qcipayments.transaction.service.LoanTService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,10 +65,12 @@ public class LoanTController {
     }
 
     @GetMapping("/dateLoanPayments/{dateFrom}/{dateTo}")
-    public ResponseEntity<List<DateSavingDto>> dateLoanPayments
+    public ResponseEntity<DateTransactions> dateLoanPayments
             (@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateFrom,
              @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateTo){
-        return new ResponseEntity<>(loanTService.dateLoanPayment(dateFrom, dateTo), HttpStatus.OK);
+
+        List<DateSavingDto> dateLoans=loanTService.dateLoanPayment(dateFrom, dateTo);
+        return new ResponseEntity<>(new DateTransactions(dateLoans), HttpStatus.OK);
 
     }
 
