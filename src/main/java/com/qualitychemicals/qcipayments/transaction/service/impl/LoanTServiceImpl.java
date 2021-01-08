@@ -68,8 +68,9 @@ public class LoanTServiceImpl implements LoanTService {
     }
 
     @Override
-    public List<LoanT> getAll() {
-        return loanTDao.findAll();
+    public List<LoanT> getAll(String userName) {
+
+        return loanTDao.findByUserNameOrderByDateDesc(userName);
     }
 
     @Override

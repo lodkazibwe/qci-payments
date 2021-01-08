@@ -15,7 +15,7 @@ public interface LoanTService {
     LoanT payPenalty(LoanTDto loanTDto);
     LoanT repayMobile(LoanPayDto loanPayDto);
     List<LoanT> loanTransactions(String userName);
-    List<LoanT> getAll();
+    List<LoanT> getAll(String userName);
 
     double totalLoanPayment(Date date);
     List<DateSavingDto> dateLoanPayment(Date dateFrom, Date dateTo);

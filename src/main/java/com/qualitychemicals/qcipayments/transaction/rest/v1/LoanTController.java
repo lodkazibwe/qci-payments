@@ -52,11 +52,11 @@ public class LoanTController {
                 (loanTService.loanTransactions(userName))), HttpStatus.OK);
 
     }
-    @GetMapping("/getAll")
-    public ResponseEntity<LoanTransactionsDto> getAll(){
+    @GetMapping("/getAll/{userName}")
+    public ResponseEntity<LoanTransactionsDto> getAll(@PathVariable String userName){
 
         return  new ResponseEntity<>(new LoanTransactionsDto(loanTConverter.entityToDto
-                (loanTService.getAll())), HttpStatus.OK);
+                (loanTService.getAll(userName))), HttpStatus.OK);
     }
 
     @GetMapping("/totalLoanPayments/{date}")
