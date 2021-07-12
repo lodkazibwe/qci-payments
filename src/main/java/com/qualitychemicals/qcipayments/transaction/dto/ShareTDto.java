@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ShareTDto extends TransactionDto{
-    private double unitCost;
+public class ShareTDto extends TransactionDto {
+    private double shareValue;
     private double shares;
 }

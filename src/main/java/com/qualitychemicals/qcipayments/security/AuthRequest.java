@@ -12,9 +12,9 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class AuthRequest {
     @NotEmpty(message = "profile name must not be empty")
-    @Size(min=3, message = "profile name at least three alphanumeric Characters")
+    @Size(min = 3, message = "profile name at least three alphanumeric Characters")
     private String userName;
     @NotEmpty(message = "password must not be empty")
-    @Size(min=6, message = "passKey must have at least 6 Characters")
+    @Size(min = 6, message = "passKey must have at least 6 Characters")
     private String password;
 }

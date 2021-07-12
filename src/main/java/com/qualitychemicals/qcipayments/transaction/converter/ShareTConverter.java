@@ -10,41 +10,46 @@ import java.util.stream.Collectors;
 @Component
 public class ShareTConverter {
 
-    public ShareTDto entityToDto(ShareT shareT){
-        ShareTDto shareTDto=new ShareTDto();
+    public ShareTDto entityToDto(ShareT shareT) {
+        ShareTDto shareTDto = new ShareTDto();
 
         shareTDto.setDate(shareT.getDate());
         shareTDto.setShares(shareT.getShares());
-        shareTDto.setUnitCost(shareT.getUnitCost());
+        shareTDto.setShareValue(shareT.getShareValue());
         shareTDto.setAmount(shareT.getAmount());
         shareTDto.setStatus(shareT.getStatus());
         shareTDto.setUserName(shareT.getUserName());
         shareTDto.setId(shareT.getId());
+        shareTDto.setCreationDateTime(shareT.getCreationDateTime());
+        shareTDto.setAccount(shareT.getAccount());
+        shareTDto.setWallet(shareT.getWallet());
+        shareTDto.setNarrative(shareT.getNarrative());
         shareTDto.setTransactionType(shareT.getTransactionType());
-        shareTDto.setAcctFrom(shareT.getAcctFrom());
-        shareTDto.setAcctTo(shareT.getAcctTo());
         return shareTDto;
 
     }
-    public ShareT dtoToEntity(ShareTDto shareTDto){
-        ShareT shareT =new ShareT();
+
+    public ShareT dtoToEntity(ShareTDto shareTDto) {
+        ShareT shareT = new ShareT();
         shareT.setDate(shareTDto.getDate());
         shareT.setAmount(shareTDto.getAmount());
         shareT.setShares(shareTDto.getShares());
-        shareT.setUnitCost(shareTDto.getUnitCost());
+        shareT.setNarrative(shareTDto.getNarrative());
         shareT.setStatus(shareTDto.getStatus());
+        shareT.setWallet(shareTDto.getWallet());
         shareT.setUserName(shareTDto.getUserName());
-        shareT.setAcctFrom(shareTDto.getAcctFrom());
-        shareT.setAcctTo(shareTDto.getAcctTo());
+        shareT.setAccount(shareTDto.getAccount());
+        shareT.setShareValue(shareTDto.getShareValue());
         shareT.setTransactionType(shareTDto.getTransactionType());
         return shareT;
     }
 
-    public List<ShareTDto> entityToDto(List<ShareT> shareTS){
+    public List<ShareTDto> entityToDto(List<ShareT> shareTS) {
         return shareTS.stream().map(this::entityToDto).collect(Collectors.toList());
 
     }
-    public List<ShareT> dtoToEntity(List<ShareTDto> shareTDtos){
+
+    public List<ShareT> dtoToEntity(List<ShareTDto> shareTDtos) {
         return shareTDtos.stream().map(this::dtoToEntity).collect(Collectors.toList());
 
     }

@@ -27,15 +27,18 @@ public class SavingTServiceImpl implements SavingTService {
     TransactionService transactionService;
     @Autowired
     TransactionDao transactionDao;
-    @Autowired SavingTConverter savingTConverter;
-    @Autowired SavingTDao savingTDao;
+    @Autowired
+    SavingTConverter savingTConverter;
+    @Autowired
+    SavingTDao savingTDao;
     private final Logger logger = LoggerFactory.getLogger(SavingTServiceImpl.class);
+
     @Override
     @Transactional
     public SavingT mobileSaving(SavingTDto savingTDto) {
         logger.info("converting...");
-        SavingT savingT=savingTConverter.dtoToEntity(savingTDto);
-        savingT.setCategory(TransactionCat.SAVING);
+        SavingT savingT = savingTConverter.dtoToEntity(savingTDto);
+        //savingT.setCategory(TransactionCat.SAVING);
         logger.info("saving transaction...");
         return transactionDao.save(savingT);
     }
@@ -59,24 +62,24 @@ public class SavingTServiceImpl implements SavingTService {
     @Override
     public double totalSaving(Date date) {
 
-        List<SavingT> savingTS =savingTDao.findByStatusAndAmountGreaterThanAndDate
-                (TransactionStatus.SUCCESS,0.0,date);
+        List<SavingT> savingTS = savingTDao.findByStatusAndAmountGreaterThanAndDate
+                (TransactionStatus.SUCCESS, 0.0, date);
 
         double total = 0;
-        for(SavingT savingT:savingTS) total += savingT.getAmount();
+        for (SavingT savingT : savingTS) total += savingT.getAmount();
         return total;
 
     }
 
     @Override
     public List<DateSavingDto> dateSaving(Date dateFrom, Date dateTo) {
-        List<DateSavingDto> dateSavings=new ArrayList<>();
-        List<SavingT> savingTS =savingTDao
+        List<DateSavingDto> dateSavings = new ArrayList<>();
+        List<SavingT> savingTS = savingTDao
                 .findByStatusAndAmountGreaterThanAndDateLessThanEqualAndDateGreaterThanEqual
-                (TransactionStatus.SUCCESS,0.0,dateTo,dateFrom);
+                        (TransactionStatus.SUCCESS, 0.0, dateTo, dateFrom);
         List<SavingT> savingTs = filterTransactions(savingTS);
-        for(SavingT savingT:savingTs){
-            DateSavingDto dateSaving =new DateSavingDto();
+        for (SavingT savingT : savingTs) {
+            DateSavingDto dateSaving = new DateSavingDto();
             dateSaving.setAmount(savingT.getAmount());
             dateSaving.setDate(savingT.getDate());
             dateSavings.add(dateSaving);
@@ -86,19 +89,19 @@ public class SavingTServiceImpl implements SavingTService {
 
     @Override
     public double totalSaving(Date dateFrom, Date dateTo) {
-        List<SavingT> savingTS =savingTDao
+        List<SavingT> savingTS = savingTDao
                 .findByStatusAndAmountGreaterThanAndDateLessThanEqualAndDateGreaterThanEqual
-                        (TransactionStatus.SUCCESS,0.0,dateTo,dateFrom);
+                        (TransactionStatus.SUCCESS, 0.0, dateTo, dateFrom);
 
         double total = 0;
-        for(SavingT savingT:savingTS) total += savingT.getAmount();
+        for (SavingT savingT : savingTS) total += savingT.getAmount();
         return total;
     }
 
-    private List<SavingT> filterTransactions(List<SavingT> savingTS){
+    private List<SavingT> filterTransactions(List<SavingT> savingTS) {
         return savingTS.stream().collect(Collectors.collectingAndThen(
                 Collectors.toMap(SavingT::getDate, Function.identity(), (left, right) -> {
-                    left.setAmount(left.getAmount()+right.getAmount());
+                    left.setAmount(left.getAmount() + right.getAmount());
                     return left;
                 }), m -> new ArrayList<>(m.values())));
     }

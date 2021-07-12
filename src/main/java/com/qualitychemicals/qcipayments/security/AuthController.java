@@ -25,32 +25,31 @@ public class AuthController {
     UserService userService;
 
     @PostMapping("get/token")
-    public ResponseEntity<?> createAuthToken(@Valid @RequestBody AuthRequest authRequest){
+    public ResponseEntity<?> createAuthToken(@Valid @RequestBody AuthRequest authRequest) {
 
-            try {
-                authenticationManager.authenticate(
-                        new UsernamePasswordAuthenticationToken(authRequest.getUserName(), authRequest.getPassword())
-                );
-            } catch (InvalidValuesException e) {
-                throw new InvalidValuesException("Incorrect profile name or password");
-            }
-            UserDetails userDetails = myUserDetailsService.loadUserByUsername(authRequest.getUserName());
-
-            final String jwt = jwtUtil.generateToken(userDetails);
-
-            return new ResponseEntity<>(new AuthResponse(jwt), HttpStatus.OK);
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(authRequest.getUserName(), authRequest.getPassword())
+            );
+        } catch (InvalidValuesException e) {
+            throw new InvalidValuesException("Incorrect profile name or password");
         }
+        UserDetails userDetails = myUserDetailsService.loadUserByUsername(authRequest.getUserName());
 
+        final String jwt = jwtUtil.generateToken(userDetails);
+
+        return new ResponseEntity<>(new AuthResponse(jwt), HttpStatus.OK);
+    }
 
 
     @PutMapping("/requestPin/{contact}")//admin
-    public ResponseEntity<?> requestPin(@PathVariable String contact){
+    public ResponseEntity<?> requestPin(@PathVariable String contact) {
         userService.requestPin(contact);
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
     @PutMapping("/createPass")//authenticated
-    public ResponseEntity<?> createPass(@Valid @RequestBody AuthRequest authRequest){
+    public ResponseEntity<?> createPass(@Valid @RequestBody AuthRequest authRequest) {
         userService.createPass(authRequest.getPassword());
         return new ResponseEntity<>("success", HttpStatus.OK);
 

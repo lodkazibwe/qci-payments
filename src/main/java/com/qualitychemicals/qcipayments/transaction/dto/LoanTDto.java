@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoanTDto extends TransactionDto{
+public class LoanTDto extends TransactionDto {
     private int loanId;
+    private String loanRef;
 }

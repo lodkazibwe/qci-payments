@@ -13,9 +13,9 @@ import java.util.function.Function;
 
 @Component
 public class JwtUtil {
-    public static final long JWT_TOKEN_VALIDITY = 3 * 60*60;
+    public static final long JWT_TOKEN_VALIDITY = 3 * 60 * 60;
     //@Value("${jwt.token.secret}")
-    private String secret="secret";
+    private String secret = "secret";
 
     //retrieve username from jwt token
     public String getUsernameFromToken(String token) {
@@ -26,7 +26,8 @@ public class JwtUtil {
     public Date getExpirationDateFromToken(String token) {
         return getClaimFromToken(token, Claims::getExpiration);
     }
-        //get claims from token
+
+    //get claims from token
     public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = getAllClaimsFromToken(token);
         return claimsResolver.apply(claims);
@@ -56,8 +57,8 @@ public class JwtUtil {
 
     private String doGenerateToken(Map<String, Object> claims, String subject) {
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-            .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
-            .signWith(SignatureAlgorithm.HS512, secret).compact();
+                .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
+                .signWith(SignatureAlgorithm.HS512, secret).compact();
     }
 
     //validate token

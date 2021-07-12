@@ -24,59 +24,50 @@ public class LoanTController {
     LoanTConverter loanTConverter;
 
     @PostMapping("/release")//admin
-    public ResponseEntity<LoanTDto> saveLoanT(@Valid @RequestBody LoanTDto loanTDto){
-        LoanT loanT=loanTService.saveLoanT(loanTDto);
+    public ResponseEntity<LoanTDto> saveLoanT(@Valid @RequestBody LoanTDto loanTDto) {
+        LoanT loanT = loanTService.saveLoanT(loanTDto);
         return new ResponseEntity<>(loanTConverter.entityToDto(loanT), HttpStatus.OK);
     }
 
-    @PostMapping("/mobileRepay")//profile
-    public ResponseEntity<LoanTDto> repayLoanMobile(@Valid @RequestBody LoanPayDto loanPayDto){
-        /*Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String profile=auth.getName();
-        loanTDto.setUserName(profile);*/
-        LoanT loanT=loanTService.repayMobile(loanPayDto);
+   /* @PostMapping("/Repay")//admin
+    public ResponseEntity<LoanTDto> repayLoanCash(@Valid @RequestBody LoanTDto loanTDto) {
+        LoanT loanT = loanTService.repay(loanTDto);
         return new ResponseEntity<>(loanTConverter.entityToDto(loanT), HttpStatus.OK);
-    }
-
-
-    @PostMapping("/Repay")//admin
-    public ResponseEntity<LoanTDto> repayLoanCash(@Valid @RequestBody LoanTDto loanTDto){
-        LoanT loanT=loanTService.repay(loanTDto);
-        return new ResponseEntity<>(loanTConverter.entityToDto(loanT), HttpStatus.OK);
-    }
+    }*/
 
     @GetMapping("/loanTransactions/{userName}")
-    public ResponseEntity<LoanTransactionsDto> loanTransactions(@PathVariable String userName){
+    public ResponseEntity<LoanTransactionsDto> loanTransactions(@PathVariable String userName) {
 
-        return  new ResponseEntity<>(new LoanTransactionsDto(loanTConverter.entityToDto
+        return new ResponseEntity<>(new LoanTransactionsDto(loanTConverter.entityToDto
                 (loanTService.loanTransactions(userName))), HttpStatus.OK);
 
     }
-    @GetMapping("/getAll/{userName}")
-    public ResponseEntity<LoanTransactionsDto> getAll(@PathVariable String userName){
 
-        return  new ResponseEntity<>(new LoanTransactionsDto(loanTConverter.entityToDto
+    @GetMapping("/getAll/{userName}")
+    public ResponseEntity<LoanTransactionsDto> getAll(@PathVariable String userName) {
+
+        return new ResponseEntity<>(new LoanTransactionsDto(loanTConverter.entityToDto
                 (loanTService.getAll(userName))), HttpStatus.OK);
     }
 
     @GetMapping("/totalLoanPayments/{date}")
-    public ResponseEntity<Double> totalLoanPayments(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date){
+    public ResponseEntity<Double> totalLoanPayments(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
         return new ResponseEntity<>(loanTService.totalLoanPayment(date), HttpStatus.OK);
     }
 
     @GetMapping("/dateLoanPayments/{dateFrom}/{dateTo}")
     public ResponseEntity<DateTransactions> dateLoanPayments
             (@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateFrom,
-             @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateTo){
+             @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateTo) {
 
-        List<DateSavingDto> dateLoans=loanTService.dateLoanPayment(dateFrom, dateTo);
+        List<DateSavingDto> dateLoans = loanTService.dateLoanPayment(dateFrom, dateTo);
         return new ResponseEntity<>(new DateTransactions(dateLoans), HttpStatus.OK);
 
     }
 
     @GetMapping("/totalLoanPayments/{dateFrom}/{dateTo}")
     public ResponseEntity<Double> totalLoanPayments(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateFrom,
-                                              @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateTo){
+                                                    @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateTo) {
         return new ResponseEntity<>(loanTService.totalLoanPayment(dateFrom, dateTo), HttpStatus.OK);
     }
 }

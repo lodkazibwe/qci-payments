@@ -9,11 +9,16 @@ import java.util.List;
 
 public interface SavingTService {
     SavingT mobileSaving(SavingTDto savingTDto);
+
     List<SavingT> savingTransactions(String userName);
 
     List<SavingT> getAll();
+
     List<SavingT> withdrawRequests();
+
     double totalSaving(Date date);
+
     List<DateSavingDto> dateSaving(Date dateFrom, Date dateTo);
+
     double totalSaving(Date dateFrom, Date dateTo);
 }

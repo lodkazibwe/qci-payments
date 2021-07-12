@@ -12,14 +12,15 @@ import org.springframework.stereotype.Service;
 public class MyUserDetailsService implements UserDetailsService {
     @Autowired
     UserDao userDao;
+
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        UserInfo user =userDao.findByUserName(userName);
-        MyUserDetails userDetails=new MyUserDetails(user);
-        if(user !=null){
+        UserInfo user = userDao.findByUserName(userName);
+        MyUserDetails userDetails = new MyUserDetails(user);
+        if (user != null) {
             return userDetails;
 
-        }else{
+        } else {
             throw new UsernameNotFoundException("UserInfo not exist with name : " + userName);
         }
     }

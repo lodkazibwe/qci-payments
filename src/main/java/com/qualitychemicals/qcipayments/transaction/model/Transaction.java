@@ -19,18 +19,22 @@ public class Transaction {
     @GeneratedValue
     private int id;
     @Temporal(TemporalType.DATE)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date date;
     private double amount;
-    private String acctFrom;
-    private String acctTo;
+    private String account;
+    private String wallet;
     private String userName;
-    @Enumerated(EnumType.STRING)
-    private TransactionCat category;
+    private String narrative;
     @Enumerated(EnumType.STRING)
     private TransactionStatus status;
-    @Enumerated(EnumType.STRING)
-    private TransactionType transactionType;
+    @JsonFormat(shape = JsonFormat.Shape.STRING )//locale = "pt-BR", timezone = "EAT"
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date creationDateTime;
+    private String transactionType;
+
+   // @Enumerated(EnumType.STRING)
+   // private TransactionType transactionType;
 
 
 }

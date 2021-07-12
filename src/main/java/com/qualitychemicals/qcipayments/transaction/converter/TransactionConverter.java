@@ -9,38 +9,43 @@ import java.util.stream.Collectors;
 
 @Component
 public class TransactionConverter {
-    public TransactionDto entityToDto(Transaction transaction){
-        TransactionDto transactionDto=new TransactionDto();
+    public TransactionDto entityToDto(Transaction transaction) {
+        TransactionDto transactionDto = new TransactionDto();
         transactionDto.setAmount(transaction.getAmount());
         transactionDto.setDate(transaction.getDate());
         transactionDto.setId(transaction.getId());
         transactionDto.setStatus(transaction.getStatus());
         transactionDto.setUserName(transaction.getUserName());
-        transactionDto.setAcctFrom(transaction.getAcctFrom());
-        transactionDto.setAcctTo(transaction.getAcctTo());
-        transactionDto.setCategory(transaction.getCategory());
+        transactionDto.setAccount(transaction.getAccount());
+        transactionDto.setWallet(transaction.getWallet());
+        transactionDto.setNarrative(transaction.getNarrative());
+        transactionDto.setCreationDateTime(transaction.getCreationDateTime());
         transactionDto.setTransactionType(transaction.getTransactionType());
         return transactionDto;
 
     }
-    public Transaction dtoToEntity(TransactionDto transactionDto){
-        Transaction transaction=new Transaction();
+
+    public Transaction dtoToEntity(TransactionDto transactionDto) {
+        Transaction transaction = new Transaction();
         transaction.setAmount(transactionDto.getAmount());
         transaction.setDate(transactionDto.getDate());
         transaction.setStatus(transactionDto.getStatus());
-        transaction.setAcctFrom(transactionDto.getAcctFrom());
-        transaction.setAcctTo(transactionDto.getAcctTo());
+        transaction.setAccount(transactionDto.getAccount());
+        transaction.setNarrative(transactionDto.getNarrative());
         transaction.setUserName(transactionDto.getUserName());
-        transaction.setCategory(transactionDto.getCategory());
+        transaction.setCreationDateTime(transactionDto.getCreationDateTime());
+        transaction.setWallet(transactionDto.getWallet());
         transaction.setTransactionType(transactionDto.getTransactionType());
         return transaction;
 
     }
-    public List<TransactionDto> entityToDto(List<Transaction> transactions){
+
+    public List<TransactionDto> entityToDto(List<Transaction> transactions) {
         return transactions.stream().map(this::entityToDto).collect(Collectors.toList());
 
     }
-    public List<Transaction> dtoToEntity(List<TransactionDto> transactions){
+
+    public List<Transaction> dtoToEntity(List<TransactionDto> transactions) {
         return transactions.stream().map(this::dtoToEntity).collect(Collectors.toList());
     }
 

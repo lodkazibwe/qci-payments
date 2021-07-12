@@ -39,6 +39,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/authenticate/get/token").permitAll()
                 .antMatchers("/transaction/**").permitAll()
+                .antMatchers("/transaction/**").permitAll()
+                .antMatchers("/yo/**").permitAll()
                 .antMatchers(
                         HttpMethod.GET,
                         "/",
@@ -53,7 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.js"
                 ).permitAll()
                 .anyRequest().authenticated().and().sessionManagement()
-        .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         http.exceptionHandling()
                 .accessDeniedHandler((request, response, accessDeniedException) ->
@@ -63,7 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-    @Bean(name= BeanIds.AUTHENTICATION_MANAGER)
+    @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
@@ -71,14 +73,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Bean
-    DaoAuthenticationProvider authenticationProvider(){
-        DaoAuthenticationProvider daoAuthenticationProvider=new DaoAuthenticationProvider();
+    DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setPasswordEncoder(encodePWD());
         daoAuthenticationProvider.setUserDetailsService(myUserDetailsService);
         return daoAuthenticationProvider;
     }
+
     @Bean
-    public BCryptPasswordEncoder encodePWD(){
+    public BCryptPasswordEncoder encodePWD() {
         return new BCryptPasswordEncoder();
     }
 }

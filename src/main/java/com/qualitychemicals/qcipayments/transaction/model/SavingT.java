@@ -16,7 +16,6 @@ import javax.persistence.Enumerated;
 @AllArgsConstructor
 @Entity
 @DiscriminatorValue("SavingT")
-public class SavingT extends Transaction{
- @Enumerated(EnumType.STRING)
- private SavingType savingType;
+public class SavingT extends Transaction {
+    private int accountId;
 }

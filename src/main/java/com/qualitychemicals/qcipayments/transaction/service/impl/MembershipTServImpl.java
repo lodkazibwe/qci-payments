@@ -6,7 +6,6 @@ import com.qualitychemicals.qcipayments.transaction.dao.TransactionDao;
 import com.qualitychemicals.qcipayments.transaction.dto.DateSavingDto;
 import com.qualitychemicals.qcipayments.transaction.dto.MembershipTDto;
 import com.qualitychemicals.qcipayments.transaction.model.MembershipT;
-import com.qualitychemicals.qcipayments.transaction.model.TransactionCat;
 import com.qualitychemicals.qcipayments.transaction.model.TransactionStatus;
 import com.qualitychemicals.qcipayments.transaction.service.MembershipTService;
 import com.qualitychemicals.qcipayments.transaction.service.TransactionService;
@@ -26,24 +25,22 @@ import java.util.stream.Collectors;
 public class MembershipTServImpl implements MembershipTService {
     @Autowired
     TransactionService transactionService;
-    @Autowired MembershipTConverter membershipTConverter;
+    @Autowired
+    MembershipTConverter membershipTConverter;
     @Autowired
     MembershipTDao membershipTDao;
     @Autowired
     TransactionDao transactionDao;
-    private final Logger logger= LoggerFactory.getLogger(MembershipTServImpl.class);
-    @Override
-    public MembershipT payMembership(MembershipTDto membershipTDto) {
+    private final Logger logger = LoggerFactory.getLogger(MembershipTServImpl.class);
 
-       return null;  }
 
     @Override
     @Transactional
     public MembershipT saveMembership(MembershipTDto membershipTDto) {
 
         logger.info("converting Transaction...");
-        MembershipT membershipT=membershipTConverter.dtoToEntity(membershipTDto);
-        membershipT.setCategory(TransactionCat.MEMBERSHIP);
+        MembershipT membershipT = membershipTConverter.dtoToEntity(membershipTDto);
+
         return transactionDao.save(membershipT);
 
     }
@@ -61,25 +58,25 @@ public class MembershipTServImpl implements MembershipTService {
 
     @Override
     public double totalMembership(Date date) {
-        List<MembershipT> membershipTS =membershipTDao.findByStatusAndAmountGreaterThanAndDate
-                (TransactionStatus.SUCCESS,0.0,date);
+        List<MembershipT> membershipTS = membershipTDao.findByStatusAndAmountGreaterThanAndDate
+                (TransactionStatus.SUCCESS, 0.0, date);
 
         double total = 0;
-        for(MembershipT membershipT:membershipTS) total += membershipT.getAmount();
+        for (MembershipT membershipT : membershipTS) total += membershipT.getAmount();
         return total;
     }
 
     @Override
     public List<DateSavingDto> dateMembership(Date dateFrom, Date dateTo) {
-        List<DateSavingDto> dateMemberships=new ArrayList<>();
-        List<MembershipT> membershipTS =membershipTDao
+        List<DateSavingDto> dateMemberships = new ArrayList<>();
+        List<MembershipT> membershipTS = membershipTDao
                 .findByStatusAndAmountGreaterThanAndDateLessThanEqualAndDateGreaterThanEqual
-                        (TransactionStatus.SUCCESS,0.0,dateTo,dateFrom);
+                        (TransactionStatus.SUCCESS, 0.0, dateTo, dateFrom);
         List<MembershipT> membershipTs = filterTransactions(membershipTS);
 
 
-        for(MembershipT membershipT:membershipTs){
-            DateSavingDto dateMembership =new DateSavingDto();
+        for (MembershipT membershipT : membershipTs) {
+            DateSavingDto dateMembership = new DateSavingDto();
             dateMembership.setAmount(membershipT.getAmount());
             dateMembership.setDate(membershipT.getDate());
             dateMemberships.add(dateMembership);
@@ -89,18 +86,18 @@ public class MembershipTServImpl implements MembershipTService {
 
     @Override
     public double totalMembership(Date dateFrom, Date dateTo) {
-        List<MembershipT> membershipTS =membershipTDao
+        List<MembershipT> membershipTS = membershipTDao
                 .findByStatusAndAmountGreaterThanAndDateLessThanEqualAndDateGreaterThanEqual
-                        (TransactionStatus.SUCCESS,0.0,dateTo,dateFrom);
+                        (TransactionStatus.SUCCESS, 0.0, dateTo, dateFrom);
         double total = 0;
-        for(MembershipT membershipT:membershipTS) total += membershipT.getAmount();
+        for (MembershipT membershipT : membershipTS) total += membershipT.getAmount();
         return total;
     }
 
-    private List<MembershipT> filterTransactions(List<MembershipT> membershipTS){
+    private List<MembershipT> filterTransactions(List<MembershipT> membershipTS) {
         return membershipTS.stream().collect(Collectors.collectingAndThen(
                 Collectors.toMap(MembershipT::getDate, Function.identity(), (left, right) -> {
-                    left.setAmount(left.getAmount()+right.getAmount());
+                    left.setAmount(left.getAmount() + right.getAmount());
                     return left;
                 }), m -> new ArrayList<>(m.values())));
     }

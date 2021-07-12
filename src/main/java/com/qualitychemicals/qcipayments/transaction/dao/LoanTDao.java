@@ -15,4 +15,7 @@ public interface LoanTDao extends JpaRepository<LoanT, Integer> {
     List<LoanT> findByStatusAndAmountGreaterThanAndDate(TransactionStatus success, double v, Date date);
 
     List<LoanT> findByStatusAndAmountGreaterThanAndDateLessThanEqualAndDateGreaterThanEqual(TransactionStatus success, double v, Date dateTo, Date dateFrom);
+
+    List<LoanT> findByLoanId(int loanId);
+
 }

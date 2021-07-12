@@ -17,7 +17,7 @@ public class UserInfo {
     private String userName;
     private String password;
 
-    @OneToMany(targetEntity = Role.class,cascade= CascadeType.ALL, fetch= FetchType.EAGER)
+    @OneToMany(targetEntity = Role.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn()
     private List<Role> roles;
 }

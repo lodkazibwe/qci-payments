@@ -12,7 +12,7 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class ShareT extends Transaction{
-    private double unitCost;
+public class ShareT extends Transaction {
+    private double shareValue;
     private double shares;
 }

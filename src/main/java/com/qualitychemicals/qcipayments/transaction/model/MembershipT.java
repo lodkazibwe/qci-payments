@@ -13,7 +13,7 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class MembershipT extends Transaction{
+public class MembershipT extends Transaction {
     private int year;
 
 }

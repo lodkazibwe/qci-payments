@@ -11,9 +11,11 @@ import java.util.List;
 @Repository
 public interface SavingTDao extends JpaRepository<SavingT, Integer> {
     List<SavingT> findByUserNameOrderByDateDesc(String userName);
+
     //List<RequiredAccountEntity> findByDebitAccNoEqualsAndDateLessThanEqualAndGreaterThanEqualAndTnxAmtEquals
     // (String debitAccNo, Date fromDate, Date toDate, String tnxAmtFlag);
     List<SavingT> findByStatusAndAmountLessThan(TransactionStatus status, Double amount);
+
     List<SavingT> findByStatusAndAmountGreaterThanAndDateLessThanEqualAndDateGreaterThanEqual(
             TransactionStatus status, Double amount, Date date1, Date date2);
 

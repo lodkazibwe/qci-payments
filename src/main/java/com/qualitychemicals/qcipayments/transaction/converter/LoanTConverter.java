@@ -2,7 +2,6 @@ package com.qualitychemicals.qcipayments.transaction.converter;
 
 import com.qualitychemicals.qcipayments.transaction.dto.LoanTDto;
 import com.qualitychemicals.qcipayments.transaction.model.LoanT;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -10,41 +9,45 @@ import java.util.stream.Collectors;
 
 @Component
 public class LoanTConverter {
-    @Autowired
-    TransactionConverter transactionConverter;
 
-    public LoanTDto entityToDto(LoanT loanT){
-        LoanTDto loanTDto =new LoanTDto();
-        loanTDto.setAcctFrom(loanT.getAcctFrom());
-        loanTDto.setTransactionType(loanT.getTransactionType());
+    public LoanTDto entityToDto(LoanT loanT) {
+        LoanTDto loanTDto = new LoanTDto();
+        loanTDto.setAccount(loanT.getAccount());
         loanTDto.setAmount(loanT.getAmount());
         loanTDto.setUserName(loanT.getUserName());
-        loanTDto.setAcctTo(loanT.getAcctTo());
+        loanTDto.setCreationDateTime(loanT.getCreationDateTime());
+        loanTDto.setNarrative(loanT.getNarrative());
         loanTDto.setDate(loanT.getDate());
         loanTDto.setId(loanT.getId());
+        loanTDto.setWallet(loanT.getWallet());
         loanTDto.setStatus(loanT.getStatus());
         loanTDto.setLoanId(loanT.getLoanId());
+        loanTDto.setTransactionType(loanT.getTransactionType());
         return loanTDto;
 
     }
-    public LoanT dtoToEntity(LoanTDto loanTDto){
-        LoanT loanT =new LoanT();
-        loanT.setAcctTo(loanTDto.getAcctTo());
-        loanT.setAcctFrom(loanTDto.getAcctFrom());
+
+    public LoanT dtoToEntity(LoanTDto loanTDto) {
+        LoanT loanT = new LoanT();
+        loanT.setAccount(loanTDto.getAccount());
         loanT.setAmount(loanTDto.getAmount());
         loanT.setDate(loanTDto.getDate());
         loanT.setStatus(loanTDto.getStatus());
-        loanT.setTransactionType(loanTDto.getTransactionType());
         loanT.setUserName(loanTDto.getUserName());
         loanT.setLoanId(loanTDto.getLoanId());
+        loanT.setWallet(loanTDto.getWallet());
+        loanT.setNarrative(loanTDto.getNarrative());
+        loanT.setTransactionType(loanTDto.getTransactionType());
         return loanT;
 
     }
-    public List<LoanTDto> entityToDto(List<LoanT> loanTS){
+
+    public List<LoanTDto> entityToDto(List<LoanT> loanTS) {
         return loanTS.stream().map(this::entityToDto).collect(Collectors.toList());
 
     }
-    public List<LoanT> dtoToEntity(List<LoanTDto> loanTDtos){
+
+    public List<LoanT> dtoToEntity(List<LoanTDto> loanTDtos) {
         return loanTDtos.stream().map(this::dtoToEntity).collect(Collectors.toList());
     }
 }

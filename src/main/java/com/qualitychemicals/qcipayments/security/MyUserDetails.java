@@ -12,21 +12,24 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
-public class MyUserDetails  implements UserDetails {
+public class MyUserDetails implements UserDetails {
     private UserInfo user;
-    public MyUserDetails(UserInfo user){
+
+    public MyUserDetails(UserInfo user) {
         this.user = user;
     }
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return user.getRoles().stream().map(roles->new SimpleGrantedAuthority("ROLE_"+roles.getRole()))
+        return user.getRoles().stream().map(roles -> new SimpleGrantedAuthority("ROLE_" + roles.getRole()))
                 .collect(Collectors.toList());
     }
-        public int getId() {
+
+    public int getId() {
         return user.getId();
     }
+
     @Override
     public String getPassword() {
         return user.getPassword();
