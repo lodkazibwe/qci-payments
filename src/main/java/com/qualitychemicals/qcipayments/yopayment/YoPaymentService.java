@@ -89,9 +89,10 @@ public class YoPaymentService {
            Response newResponse =yoRequest(request);
            ///
            externalTransaction.setTransactionResponse(newResponse);
-
            assert newResponse != null;
-           if(newResponse.getStatusMessage() == null) {
+           if(newResponse.getStatus().equals("ERROR")) {
+               logger.info("transaction pending...");
+           }else{
                Transaction transaction =generateTransaction(externalTransaction);
                if (newResponse.getTransactionStatus().equals("SUCCEEDED")) {
                    logger.info("transaction successful...");
@@ -153,7 +154,7 @@ public class YoPaymentService {
             ResponseEntity<String> response =restTemplate.exchange(uri, HttpMethod.POST, request, String.class);
             HttpStatus httpStatus = response.getStatusCode();
             logger.info("yo service status..." + httpStatus);
-            logger.error(response.getBody());
+            //logger.error(response.getBody());
             XmlMapper mapper = new XmlMapper();
             //return response.getBody();
             return mapper.readValue(response.getBody().substring(50), Response.class);
