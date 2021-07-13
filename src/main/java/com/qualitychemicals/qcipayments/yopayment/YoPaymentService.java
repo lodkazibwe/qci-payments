@@ -40,7 +40,7 @@ public class YoPaymentService {
     private final Logger logger = LoggerFactory.getLogger(YoPaymentService.class);
 
     @Transactional
-    public void deposit(TransactionDto transactionDto) throws IOException {
+    public String deposit(TransactionDto transactionDto) throws IOException {
         Request request =requestConverter.transactionToRequest(transactionDto);
         request.setMethod("acdepositfunds");
         request.setNonBlocking("TRUE");
@@ -60,6 +60,7 @@ public class YoPaymentService {
         externalTransaction.setStatus(response.getTransactionStatus());
         logger.info("saving externalTransaction...");
         externalTransactionService.save(externalTransaction);
+        return response.getStatusMessage();
 
     }
 

@@ -23,8 +23,8 @@ public class YoPaymentController {
 
     @PostMapping("/deposit")
     public ResponseEntity<String> deposit(@Valid @RequestBody TransactionDto transactionDto) throws IOException {
-        yoPaymentService.deposit(transactionDto);
-        return new ResponseEntity<>("transaction initiated", HttpStatus.OK);
+
+        return new ResponseEntity<>("initiated "+ yoPaymentService.deposit(transactionDto), HttpStatus.OK);
     }
 
     @GetMapping("/refresh/{walletRef}")
