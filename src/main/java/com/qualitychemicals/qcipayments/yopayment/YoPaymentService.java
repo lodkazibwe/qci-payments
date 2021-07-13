@@ -64,7 +64,7 @@ public class YoPaymentService {
             logger.info("no message");
             return ": "+response.getStatus();
         }
-        return response.getStatusMessage()+": "+response.getStatus();
+        return response.getStatusMessage();
 
     }
 
