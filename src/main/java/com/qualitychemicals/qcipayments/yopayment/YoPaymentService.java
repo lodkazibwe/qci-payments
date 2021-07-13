@@ -134,8 +134,6 @@ public class YoPaymentService {
             HttpStatus httpStatus = response.getStatusCode();
             logger.info("yo service status..." + httpStatus);
             logger.error(response.getBody());
-            //logger.info(request.toString());
-            //logger.error(""+yoTransaction.getAmount());
             XmlMapper mapper = new XmlMapper();
             //return response.getBody();
             return mapper.readValue(response.getBody().substring(50), Response.class);

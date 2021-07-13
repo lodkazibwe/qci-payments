@@ -18,8 +18,6 @@ public class RequestConverter {
         request.setApiPassword(appConfigReader.getPassword());
         request.setApiUserName(appConfigReader.getUserName());
         request.setMethod("method");
-        request.setFailureNotificationUrl("");
-        request.setInstantNotificationUrl("");
         request.setNarrative(transactionDto.getNarrative()+transactionDto.getAccount());
         request.setNonBlocking("FALSE");
         request.setProviderReferenceText(transactionDto.getNarrative());
