@@ -89,9 +89,10 @@ public class YoPaymentService {
            Response newResponse =yoRequest(request);
            ///
            externalTransaction.setTransactionResponse(newResponse);
-           Transaction transaction =generateTransaction(externalTransaction);
+
            assert newResponse != null;
            if(newResponse.getStatusMessage() == null) {
+               Transaction transaction =generateTransaction(externalTransaction);
                if (newResponse.getTransactionStatus().equals("SUCCEEDED")) {
                    logger.info("transaction successful...");
                    transaction.setStatus(TransactionStatus.SUCCESS);
