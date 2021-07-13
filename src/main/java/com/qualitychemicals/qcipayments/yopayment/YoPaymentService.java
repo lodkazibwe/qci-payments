@@ -62,7 +62,7 @@ public class YoPaymentService {
         externalTransactionService.save(externalTransaction);
         if(response.getStatusMessage() == null){
             logger.info("no message");
-            return ": "+response.getStatus();
+            return ": ";
         }
         return response.getStatusMessage();
 
