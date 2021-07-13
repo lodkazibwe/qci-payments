@@ -7,6 +7,8 @@ import com.qualitychemicals.qcipayments.yopayment.externalTransaction.model.Requ
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Random;
+
 @Component
 public class RequestConverter {
     @Autowired
@@ -18,9 +20,15 @@ public class RequestConverter {
         request.setApiPassword(appConfigReader.getPassword());
         request.setApiUserName(appConfigReader.getUserName());
         request.setMethod("method");
-        request.setNarrative(transactionDto.getNarrative()+transactionDto.getAccount());
+        request.setNarrative(transactionDto.getNarrative()+transactionDto.getAccount()+getrand());
         request.setNonBlocking("FALSE");
         //request.setProviderReferenceText(transactionDto.getNarrative());
         return request;
+    }
+
+    private String getrand() {
+        Random random = new Random();
+        String rand = String.format("%04d", random.nextInt(100));
+        return  "_"+rand;
     }
 }

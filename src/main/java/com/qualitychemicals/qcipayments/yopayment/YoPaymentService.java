@@ -67,7 +67,7 @@ public class YoPaymentService {
             return "initiated:";
         }else if(response.getStatusMessage().length()>100){
             return "failed";
-            //return response.getStatusMessage().substring(0, Math.min(response.getStatusMessage().length(), 80));
+        //return response.getStatusMessage().substring(0, Math.min(response.getStatusMessage().length(), 80));
 
         }
         logger.info("too long******........"+response.getStatusMessage().length());
