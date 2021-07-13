@@ -87,12 +87,15 @@ public class YoPaymentService {
            request.setTransactionReference(externalTransaction.getTransactionResponse().getTransactionReference());
            logger.info("checking transaction with yo payment...");
            Response newResponse =yoRequest(request);
-           ///
-           externalTransaction.setTransactionResponse(newResponse);
+
+           //externalTransaction.getTransactionResponse().setStatus();
+
            assert newResponse != null;
            if(newResponse.getStatus().equals("ERROR")) {
                logger.info("transaction pending...");
            }else{
+               externalTransaction.setStatus(newResponse.getStatus());
+               externalTransaction.getTransactionResponse().setStatus(newResponse.getStatus());
                Transaction transaction =generateTransaction(externalTransaction);
                if (newResponse.getTransactionStatus().equals("SUCCEEDED")) {
                    logger.info("transaction successful...");
@@ -106,7 +109,7 @@ public class YoPaymentService {
                }else if(newResponse.getTransactionStatus().equals("FAILED")){
                    logger.info("transaction failed...");
                    transaction.setStatus(TransactionStatus.FAILED);
-                   transaction.setTransactionType("deposit");
+
                    transaction.setNarrative("deposit from " + transaction.getNarrative());
                    transaction.setAmount(transaction.getAmount() * -1);
                   transactionService.addTransaction(transaction);
