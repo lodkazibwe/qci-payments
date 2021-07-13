@@ -37,10 +37,10 @@ public class Request {
     private String narrative;// eg. subscription fee
     @JsonProperty("ProviderReferenceText")
     private String providerReferenceText; //sms
-    @JsonProperty("InstantNotificationUrl")
-    private String instantNotificationUrl;
-    @JsonProperty("FailureNotificationUrl")
-    private String failureNotificationUrl;
+    //@JsonProperty("InstantNotificationUrl")
+    //private String instantNotificationUrl;
+    //@JsonProperty("FailureNotificationUrl")
+    //private String failureNotificationUrl;
     @JsonProperty("TransactionReference")
     private String transactionReference;
 }

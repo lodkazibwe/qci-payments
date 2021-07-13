@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
+
 
 @Component
 public class YoPaymentService {
@@ -58,15 +60,17 @@ public class YoPaymentService {
         externalTransaction.setTransactionRequest(request);
         externalTransaction.setTransactionResponse(response);
         externalTransaction.setStatus(response.getTransactionStatus());
-        logger.info("saving externalTransaction...");
-        externalTransactionService.save(externalTransaction);
         if(response.getStatusMessage() == null){
+            logger.info("saving externalTransaction...");
+            externalTransactionService.save(externalTransaction);
             logger.info("no message");
             return ": ";
         }else if(response.getStatusMessage().length()>100){
-            return response.getStatusMessage().substring(0, Math.min(response.getStatusMessage().length(), 80));
+            return "duplicate transaction";
+            //return response.getStatusMessage().substring(0, Math.min(response.getStatusMessage().length(), 80));
 
         }
+        logger.info("too long"+response.getStatusMessage().length());
         return response.getStatusMessage();
 
     }
