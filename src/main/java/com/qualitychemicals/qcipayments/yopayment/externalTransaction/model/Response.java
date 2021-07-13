@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Data
@@ -16,6 +17,7 @@ import javax.persistence.Id;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Response {
     @Id
+    @GeneratedValue
     private int id;
     @JsonProperty("Status")
     private String status;

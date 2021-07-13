@@ -15,6 +15,7 @@ import java.util.Date;
 @Entity
 public class ExternalTransaction {
     @Id
+    @GeneratedValue
     private int id;
     private String status;
     private String wallet;
@@ -22,8 +23,10 @@ public class ExternalTransaction {
     @JsonFormat(shape = JsonFormat.Shape.STRING )
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
-    @OneToOne
+    @OneToOne(targetEntity = Request.class, fetch = FetchType.EAGER,cascade=CascadeType.ALL)
+    @JoinColumn()
     private Request transactionRequest;
-    @OneToOne
+    @OneToOne(targetEntity = Response.class, fetch = FetchType.EAGER,cascade=CascadeType.ALL)
+    @JoinColumn()
     private Response transactionResponse;
 }

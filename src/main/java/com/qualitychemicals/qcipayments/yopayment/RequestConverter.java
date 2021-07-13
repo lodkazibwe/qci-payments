@@ -13,7 +13,7 @@ public class RequestConverter {
     AppConfigReader appConfigReader;
     public Request transactionToRequest(TransactionDto transactionDto){
         Request request =new Request();
-        request.setAccount(transactionDto.getAccount());
+        request.setAccount("256"+transactionDto.getAccount());
         request.setAmount(transactionDto.getAmount());
         request.setApiPassword(appConfigReader.getPassword());
         request.setApiUserName(appConfigReader.getUserName());
