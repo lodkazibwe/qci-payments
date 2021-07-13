@@ -63,6 +63,9 @@ public class YoPaymentService {
         if(response.getStatusMessage() == null){
             logger.info("no message");
             return ": ";
+        }else if(response.getStatusMessage().length()>100){
+            return response.getStatusMessage().substring(0, Math.min(response.getStatusMessage().length(), 80));
+
         }
         return response.getStatusMessage();
 
