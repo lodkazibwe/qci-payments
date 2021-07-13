@@ -40,7 +40,7 @@ public class ShareTServiceImpl implements ShareTService {
 
         logger.info("converting...");
         ShareT shareT = shareTConverter.dtoToEntity(shareTDto);
-        //shareT.setCategory(TransactionCat.SHARE);
+        shareT.setStatus(TransactionStatus.SUCCESS);
         logger.info("saving transaction...");
         return transactionDao.save(shareT);
     }

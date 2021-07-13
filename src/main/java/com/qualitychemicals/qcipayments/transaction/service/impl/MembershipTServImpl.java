@@ -40,6 +40,7 @@ public class MembershipTServImpl implements MembershipTService {
 
         logger.info("converting Transaction...");
         MembershipT membershipT = membershipTConverter.dtoToEntity(membershipTDto);
+        membershipT.setStatus(TransactionStatus.SUCCESS);
 
         return transactionDao.save(membershipT);
 
