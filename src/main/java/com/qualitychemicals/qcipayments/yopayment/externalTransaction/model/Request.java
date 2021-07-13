@@ -35,8 +35,8 @@ public class Request {
     private String account;//256708252166==number
     @JsonProperty("Narrative")
     private String narrative;// eg. subscription fee
-    @JsonProperty("ProviderReferenceText")
-    private String providerReferenceText; //sms
+    //@JsonProperty("ProviderReferenceText")
+    //private String providerReferenceText; //sms
     //@JsonProperty("InstantNotificationUrl")
     //private String instantNotificationUrl;
     //@JsonProperty("FailureNotificationUrl")

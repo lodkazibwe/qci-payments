@@ -64,13 +64,13 @@ public class YoPaymentService {
             logger.info("saving externalTransaction...");
             externalTransactionService.save(externalTransaction);
             logger.info("no message");
-            return ": ";
+            return "initiated:";
         }else if(response.getStatusMessage().length()>100){
-            return "duplicate transaction";
+            return "failed";
             //return response.getStatusMessage().substring(0, Math.min(response.getStatusMessage().length(), 80));
 
         }
-        logger.info("too long"+response.getStatusMessage().length());
+        logger.info("too long******........"+response.getStatusMessage().length());
         return response.getStatusMessage();
 
     }

@@ -20,7 +20,7 @@ public class RequestConverter {
         request.setMethod("method");
         request.setNarrative(transactionDto.getNarrative()+transactionDto.getAccount());
         request.setNonBlocking("FALSE");
-        request.setProviderReferenceText(transactionDto.getNarrative());
+        //request.setProviderReferenceText(transactionDto.getNarrative());
         return request;
     }
 }
