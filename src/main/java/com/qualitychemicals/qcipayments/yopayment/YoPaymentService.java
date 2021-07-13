@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 
 
 @Component
@@ -65,7 +64,7 @@ public class YoPaymentService {
             externalTransactionService.save(externalTransaction);
             logger.info("no message");
             return "initiated:";
-        }else if(response.getStatusMessage().length()>100){
+        }else if(response.getStatusMessage().length()>150){
             return "failed";
         //return response.getStatusMessage().substring(0, Math.min(response.getStatusMessage().length(), 80));
 
@@ -88,19 +87,23 @@ public class YoPaymentService {
            request.setTransactionReference(externalTransaction.getTransactionResponse().getTransactionReference());
            logger.info("checking transaction with yo payment...");
            Response newResponse =yoRequest(request);
+           ///
            externalTransaction.setTransactionResponse(newResponse);
            Transaction transaction =generateTransaction(externalTransaction);
            assert newResponse != null;
-           if(newResponse.getTransactionStatus().equals("SUCCEEDED")){
-               logger.info("transaction successful...");
-               transaction.setStatus(TransactionStatus.SUCCESS);
-               transaction.setTransactionType("deposit");
-               transaction.setNarrative("deposit from "+transaction.getNarrative());
-               transaction.setAmount(transaction.getAmount()*-1);
-               Transaction savedTransaction =transactionService.addTransaction(transaction);
-               successfulTransactions.add(savedTransaction);
+           if(newResponse.getStatusMessage() == null) {
+               if (newResponse.getTransactionStatus().equals("SUCCEEDED")) {
+                   logger.info("transaction successful...");
+                   transaction.setStatus(TransactionStatus.SUCCESS);
+                   transaction.setTransactionType("deposit");
+                   transaction.setNarrative("deposit from " + transaction.getNarrative());
+                   transaction.setAmount(transaction.getAmount() * -1);
+                   Transaction savedTransaction = transactionService.addTransaction(transaction);
+                   successfulTransactions.add(savedTransaction);
+               }
+
+               externalTransactionService.save(externalTransaction);
            }
-           externalTransactionService.save(externalTransaction);
 
        }
        return successfulTransactions;
