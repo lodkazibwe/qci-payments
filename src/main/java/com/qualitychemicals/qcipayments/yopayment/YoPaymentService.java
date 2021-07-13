@@ -101,9 +101,18 @@ public class YoPaymentService {
                    transaction.setAmount(transaction.getAmount() * -1);
                    Transaction savedTransaction = transactionService.addTransaction(transaction);
                    successfulTransactions.add(savedTransaction);
+                   externalTransactionService.save(externalTransaction);
+               }else if(newResponse.getTransactionStatus().equals("FAILED")){
+                   logger.info("transaction failed...");
+                   transaction.setStatus(TransactionStatus.FAILED);
+                   transaction.setTransactionType("deposit");
+                   transaction.setNarrative("deposit from " + transaction.getNarrative());
+                   transaction.setAmount(transaction.getAmount() * -1);
+                  transactionService.addTransaction(transaction);
+                   externalTransactionService.save(externalTransaction);
+
                }
 
-               externalTransactionService.save(externalTransaction);
            }
 
        }
