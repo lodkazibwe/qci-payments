@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -34,6 +35,7 @@ public class Request {
     @JsonProperty("Account")
     private String account;//256708252166==number
     @JsonProperty("Narrative")
+    @Column(length = 900)
     private String narrative;// eg. subscription fee
     //@JsonProperty("ProviderReferenceText")
     //private String providerReferenceText; //sms
