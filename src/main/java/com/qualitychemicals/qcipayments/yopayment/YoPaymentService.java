@@ -107,9 +107,12 @@ public class YoPaymentService {
                    transaction.setExternalId(externalTransaction.getId());
                    Transaction savedTransaction = transactionService.addTransaction(transaction);
                    successfulTransactions.add(savedTransaction);
+                   externalTransactionService.save(externalTransaction);
 
+               }else if (newResponse.getTransactionStatus().equals("FAILED")){
+                   externalTransactionService.save(externalTransaction);
                }
-               externalTransactionService.save(externalTransaction);
+
            }
 
        }
