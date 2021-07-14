@@ -104,7 +104,7 @@ public class YoPaymentService {
                    transaction.setTransactionType("deposit");
                    transaction.setNarrative("deposit from " + transaction.getNarrative());
                    transaction.setAmount(transaction.getAmount() * -1);
-                   transaction.setExternalId(externalTransaction.getId());
+                   //transaction.setExternalId(externalTransaction.getId());
                    Transaction savedTransaction = transactionService.addTransaction(transaction);
                    successfulTransactions.add(savedTransaction);
                    externalTransactionService.save(externalTransaction);
