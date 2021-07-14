@@ -96,27 +96,20 @@ public class YoPaymentService {
            }else{
                externalTransaction.setStatus(newResponse.getStatus());
                externalTransaction.getTransactionResponse().setStatus(newResponse.getStatus());
-               Transaction transaction =generateTransaction(externalTransaction);
+
                if (newResponse.getTransactionStatus().equals("SUCCEEDED")) {
+                   Transaction transaction =generateTransaction(externalTransaction);
                    logger.info("transaction successful...");
                    transaction.setStatus(TransactionStatus.SUCCESS);
                    transaction.setTransactionType("deposit");
                    transaction.setNarrative("deposit from " + transaction.getNarrative());
                    transaction.setAmount(transaction.getAmount() * -1);
+                   transaction.setExternalId(externalTransaction.getId());
                    Transaction savedTransaction = transactionService.addTransaction(transaction);
                    successfulTransactions.add(savedTransaction);
-                   externalTransactionService.save(externalTransaction);
-               }else if(newResponse.getTransactionStatus().equals("FAILED")){
-                   logger.info("transaction failed...");
-                   transaction.setStatus(TransactionStatus.FAILED);
-
-                   transaction.setNarrative("deposit from " + transaction.getNarrative());
-                   transaction.setAmount(transaction.getAmount() * -1);
-                  transactionService.addTransaction(transaction);
-                   externalTransactionService.save(externalTransaction);
 
                }
-
+               externalTransactionService.save(externalTransaction);
            }
 
        }
