@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.qualitychemicals.qcipayments.transaction.converter.TransactionConverter;
 import com.qualitychemicals.qcipayments.transaction.dto.AllTransactions;
 import com.qualitychemicals.qcipayments.transaction.dto.TransactionDto;
+import com.qualitychemicals.qcipayments.transaction.service.TransactionService;
 import com.qualitychemicals.qcipayments.yopayment.externalTransaction.model.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ public class YoPaymentController {
     @Autowired YoPaymentService yoPaymentService;
     @Autowired
     TransactionConverter transactionConverter;
+    @Autowired TransactionService transactionService;
 
     @PostMapping("/deposit")
     public ResponseEntity<String> deposit(@Valid @RequestBody TransactionDto transactionDto) throws IOException {
@@ -28,9 +30,10 @@ public class YoPaymentController {
     }
 
     @GetMapping("/refresh/{walletRef}")
-    public ResponseEntity<AllTransactions> refresh(@PathVariable String walletRef) throws IOException {
+    public ResponseEntity<AllTransactions> refresh(@PathVariable String walletRef){
         AllTransactions deposits =new AllTransactions();
-        deposits.setTransactions(transactionConverter.entityToDto(yoPaymentService.refreshDeposit(walletRef)));
+        //deposits.setTransactions(transactionConverter.entityToDto(yoPaymentService.refreshDeposit(walletRef)));
+        deposits.setTransactions(transactionConverter.entityToDto(transactionService.successfulDeposits(walletRef)));
         return new ResponseEntity<>(deposits, HttpStatus.OK);
     }
 

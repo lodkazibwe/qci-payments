@@ -36,6 +36,11 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
+    public List<Transaction> successfulDeposits(String wallet) {
+        return transactionDao.findByAmountLessThanAndWalletAndStatus(0.0, wallet, TransactionStatus.SUCCESS);
+    }
+
+    @Override
     public Transaction addTransaction(Transaction transaction) {
         return transactionDao.save(transaction);
     }

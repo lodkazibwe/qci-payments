@@ -10,6 +10,8 @@ import java.util.List;
 public interface TransactionService {
     Transaction saveTransaction(TransactionDto transactionDto);
 
+    List<Transaction> successfulDeposits(String wallet);
+
     List<LoanT> loanTransactions(int loanId);
 
     List<Transaction> userTransactions(String mobile);

@@ -1,6 +1,7 @@
 package com.qualitychemicals.qcipayments.transaction.dao;
 
 import com.qualitychemicals.qcipayments.transaction.model.Transaction;
+import com.qualitychemicals.qcipayments.transaction.model.TransactionStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,4 +13,6 @@ public interface TransactionDao extends JpaRepository<Transaction, Integer> {
     List<Transaction> findByUserNameOrderByDateDesc(String userName);
 
     List<Transaction> findByTransactionType(String transactionType);
+
+    List<Transaction> findByAmountLessThanAndWalletAndStatus(double amount, String wallet, TransactionStatus status);
 }
