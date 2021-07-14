@@ -30,10 +30,10 @@ public class YoPaymentController {
     }
 
     @GetMapping("/refresh/{walletRef}")
-    public ResponseEntity<AllTransactions> refresh(@PathVariable String walletRef){
+    public ResponseEntity<AllTransactions> refresh(@PathVariable String walletRef) throws IOException {
         AllTransactions deposits =new AllTransactions();
-        //deposits.setTransactions(transactionConverter.entityToDto(yoPaymentService.refreshDeposit(walletRef)));
-        deposits.setTransactions(transactionConverter.entityToDto(transactionService.successfulDeposits(walletRef)));
+        deposits.setTransactions(transactionConverter.entityToDto(yoPaymentService.refreshDeposit(walletRef)));
+        //deposits.setTransactions(transactionConverter.entityToDto(transactionService.successfulDeposits(walletRef)));
         return new ResponseEntity<>(deposits, HttpStatus.OK);
     }
 
