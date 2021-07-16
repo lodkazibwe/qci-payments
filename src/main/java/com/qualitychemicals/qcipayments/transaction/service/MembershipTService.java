@@ -8,11 +8,15 @@ import java.util.Date;
 import java.util.List;
 
 public interface MembershipTService {
-    MembershipT saveMembership(MembershipTDto membershipTDto);
+    MembershipT saveMembership(MembershipTDto membershipTDto);//wallet
+    List<MembershipT> allByWallet(String wallet);
+    List<MembershipT> last5ByWallet(String wallet);
 
-    List<MembershipT> membershipTrans(String userName);
 
+    List<MembershipT> membershipTrans(String userName);//admin
     List<MembershipT> getAll();
+
+
 
     double totalMembership(Date date);
 

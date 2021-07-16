@@ -1,6 +1,5 @@
 package com.qualitychemicals.qcipayments.transaction.dao;
 
-import com.qualitychemicals.qcipayments.transaction.model.SavingT;
 import com.qualitychemicals.qcipayments.transaction.model.ShareT;
 import com.qualitychemicals.qcipayments.transaction.model.TransactionStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,6 +12,12 @@ import java.util.List;
 public interface ShareTDao extends JpaRepository<ShareT, Integer> {
 
     List<ShareT> findByUserNameOrderByDateDesc(String userName);
+
+    List<ShareT> findByWalletOrderByCreationDateTimeDesc(String wallet);
+
+    List<ShareT> findFirst5ByWalletOrderByCreationDateTimeDesc(String wallet);
+
+
 
     List<ShareT> findByStatusAndAmountGreaterThanAndDate(TransactionStatus success, double v, Date date);
 

@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -74,7 +75,7 @@ public class YoPaymentService {
 
     }
 
-    @Transactional
+    @Transactional(isolation= Isolation.SERIALIZABLE)
     public List<Transaction> refreshDeposit(String wallet) throws IOException {
         List<ExternalTransaction> externalTransactions
                 =externalTransactionService.getByWalletAndStatus(wallet, "PENDING");

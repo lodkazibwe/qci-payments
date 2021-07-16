@@ -32,12 +32,18 @@ public class TransactionServiceImpl implements TransactionService {
         logger.info("converting...");
         Transaction transaction = transactionConverter.dtoToEntity(transactionDto);
         logger.info("saving transaction...");
+        transaction.setStatus(TransactionStatus.SUCCESS);
         return transactionDao.save(transaction);
     }
 
     @Override
-    public List<Transaction> successfulDeposits(String wallet) {
-        return transactionDao.findByAmountLessThanAndWalletAndStatus(0.0, wallet, TransactionStatus.SUCCESS);
+    public List<Transaction> allByWallet(String wallet) {
+        return transactionDao.findByWalletOrderByCreationDateTimeDesc(wallet);
+    }
+
+    @Override
+    public List<Transaction> last5ByWallet(String wallet) {
+        return transactionDao.findFirst5ByWalletOrderByCreationDateTimeDesc(wallet);
     }
 
     @Override

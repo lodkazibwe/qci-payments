@@ -9,10 +9,13 @@ import java.util.List;
 
 public interface ShareTService {
     ShareT mobileShares(ShareTDto shareTDto);
+    List<ShareT> allByWallet(String wallet);
+    List<ShareT> last5ByWallet(String wallet);
 
     List<ShareT> shareTransactions(String userName);
-
     List<ShareT> getAll();
+
+    /***++++++++++++**/
 
     double totalShares(Date date);
 

@@ -30,7 +30,22 @@ public class MembershipTController {
         return new ResponseEntity<>(membershipTConverter.entityToDto(membershipTService.saveMembership(membershipTDto)), HttpStatus.OK);
     }
 
-    @GetMapping("/membershipTrans/{userName}")
+    @GetMapping("/allByWallet/{wallet}")
+    public ResponseEntity<MembershipTransactionsDto> myMembershipTrans(@PathVariable String wallet) {
+
+        return new ResponseEntity<>(new MembershipTransactionsDto(membershipTConverter.entityToDto
+                (membershipTService.allByWallet(wallet))), HttpStatus.OK);
+
+    }
+    @GetMapping("/recentByWallet/{wallet}")
+    public ResponseEntity<MembershipTransactionsDto> last5ByWallet(@PathVariable String wallet) {
+
+        return new ResponseEntity<>(new MembershipTransactionsDto(membershipTConverter.entityToDto
+                (membershipTService.last5ByWallet(wallet))), HttpStatus.OK);
+
+    }
+
+    @GetMapping("/allByUserName/{userName}")//admin
     public ResponseEntity<MembershipTransactionsDto> membershipTrans(@PathVariable String userName) {
 
         return new ResponseEntity<>(new MembershipTransactionsDto(membershipTConverter.entityToDto
@@ -38,13 +53,14 @@ public class MembershipTController {
 
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("/getAll")//admin
     public ResponseEntity<MembershipTransactionsDto> getAll() {
 
         return new ResponseEntity<>(new MembershipTransactionsDto(membershipTConverter.entityToDto
                 (membershipTService.getAll())), HttpStatus.OK);
 
     }
+    /***+++++++++++++++++++++++++++++++++++**/
 
     @GetMapping("/totalMembership/{date}")
     public ResponseEntity<Double> totalMembership(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {

@@ -40,10 +40,19 @@ public class LoanTServiceImpl implements LoanTService {
         logger.info("setting transaction...");
         LoanT loanT = loanTConverter.dtoToEntity(loanTDto);
         loanT.setStatus(TransactionStatus.SUCCESS);
-        return transactionDao.save(loanT);
+        return loanTDao.save(loanT);
 
     }
 
+    @Override
+    public List<LoanT> allByWallet(String wallet, String loan) {
+        return loanTDao.findByWalletAndAccountOrderByCreationDateTimeDesc(wallet, loan);
+    }
+
+    @Override
+    public List<LoanT> allByLoan(String loan) {
+        return loanTDao.findByAccountOrderByCreationDateTimeDesc(loan);
+    }
 
     @Override
     public List<LoanT> loanTransactions(String userName) {

@@ -42,9 +42,18 @@ public class ShareTServiceImpl implements ShareTService {
         ShareT shareT = shareTConverter.dtoToEntity(shareTDto);
         shareT.setStatus(TransactionStatus.SUCCESS);
         logger.info("saving transaction...");
-        return transactionDao.save(shareT);
+        return shareTDao.save(shareT);
     }
 
+    @Override
+    public List<ShareT> allByWallet(String wallet) {
+        return shareTDao.findByWalletOrderByCreationDateTimeDesc(wallet);
+    }
+
+    @Override
+    public List<ShareT> last5ByWallet(String wallet) {
+        return shareTDao.findFirst5ByWalletOrderByCreationDateTimeDesc(wallet);
+    }
 
     @Override
     public List<ShareT> shareTransactions(String userName) {

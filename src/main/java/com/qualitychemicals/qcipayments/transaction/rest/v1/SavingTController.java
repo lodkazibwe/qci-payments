@@ -1,10 +1,7 @@
 package com.qualitychemicals.qcipayments.transaction.rest.v1;
 
 import com.qualitychemicals.qcipayments.transaction.converter.SavingTConverter;
-import com.qualitychemicals.qcipayments.transaction.dto.DateSavingDto;
-import com.qualitychemicals.qcipayments.transaction.dto.DateTransactions;
-import com.qualitychemicals.qcipayments.transaction.dto.SavingTDto;
-import com.qualitychemicals.qcipayments.transaction.dto.SavingsTransactionsDto;
+import com.qualitychemicals.qcipayments.transaction.dto.*;
 import com.qualitychemicals.qcipayments.transaction.service.SavingTService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -31,7 +28,24 @@ public class SavingTController {
 
     }
 
-    @GetMapping("/savingTransactions/{userName}")
+    @GetMapping("/allByWallet/{wallet}")
+    public ResponseEntity<SavingsTransactionsDto> allByWallet(@PathVariable String wallet) {
+
+        return new ResponseEntity<>(new SavingsTransactionsDto(savingTConverter.entityToDto
+                (savingTService.allByWallet(wallet))), HttpStatus.OK);
+
+    }
+
+    @GetMapping("/recentByWallet/{wallet}")
+    public ResponseEntity<SavingsTransactionsDto> last5ByWallet(@PathVariable String wallet) {
+
+        return new ResponseEntity<>(new SavingsTransactionsDto(savingTConverter.entityToDto
+                (savingTService.last5ByWallet(wallet))), HttpStatus.OK);
+
+    }
+
+
+    @GetMapping("/savingTransactions/{userName}")//admin
     public ResponseEntity<SavingsTransactionsDto> savingTransactions(@PathVariable String userName) {
 
         return new ResponseEntity<>(new SavingsTransactionsDto(savingTConverter.entityToDto
@@ -39,13 +53,15 @@ public class SavingTController {
 
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("/getAll")//admin
     public ResponseEntity<SavingsTransactionsDto> getAll() {
 
         return new ResponseEntity<>(new SavingsTransactionsDto(savingTConverter.entityToDto
                 (savingTService.getAll())), HttpStatus.OK);
 
     }
+
+
 
     @GetMapping("/withdrawRequests")
     public ResponseEntity<SavingsTransactionsDto> withdrawRequests() {

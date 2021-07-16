@@ -23,19 +23,29 @@ public class LoanTController {
     @Autowired
     LoanTConverter loanTConverter;
 
-    @PostMapping("/release")//admin
+    @PostMapping("/saveLoanT")//admin
     public ResponseEntity<LoanTDto> saveLoanT(@Valid @RequestBody LoanTDto loanTDto) {
         LoanT loanT = loanTService.saveLoanT(loanTDto);
         return new ResponseEntity<>(loanTConverter.entityToDto(loanT), HttpStatus.OK);
     }
 
-   /* @PostMapping("/Repay")//admin
-    public ResponseEntity<LoanTDto> repayLoanCash(@Valid @RequestBody LoanTDto loanTDto) {
-        LoanT loanT = loanTService.repay(loanTDto);
-        return new ResponseEntity<>(loanTConverter.entityToDto(loanT), HttpStatus.OK);
-    }*/
 
-    @GetMapping("/loanTransactions/{userName}")
+    @GetMapping("/allByWallet/{wallet}/{loanRef}")
+    public ResponseEntity<LoanTransactionsDto> allByWallet(@PathVariable String wallet, @PathVariable String loanRef) {
+
+        return new ResponseEntity<>(new LoanTransactionsDto(loanTConverter.entityToDto
+                (loanTService.allByWallet(wallet, loanRef))), HttpStatus.OK);
+
+    }
+    @GetMapping("/allByLoanRef/{loanRef}")
+    public ResponseEntity<LoanTransactionsDto> allByLoanRef(@PathVariable String loanRef) {
+
+        return new ResponseEntity<>(new LoanTransactionsDto(loanTConverter.entityToDto
+                (loanTService.allByLoan(loanRef))), HttpStatus.OK);
+
+    }
+
+    @GetMapping("/loanTransactions/{userName}")//admin
     public ResponseEntity<LoanTransactionsDto> loanTransactions(@PathVariable String userName) {
 
         return new ResponseEntity<>(new LoanTransactionsDto(loanTConverter.entityToDto
@@ -43,7 +53,7 @@ public class LoanTController {
 
     }
 
-    @GetMapping("/getAll/{userName}")
+    @GetMapping("/getAll/{userName}")//admin
     public ResponseEntity<LoanTransactionsDto> getAll(@PathVariable String userName) {
 
         return new ResponseEntity<>(new LoanTransactionsDto(loanTConverter.entityToDto

@@ -12,6 +12,11 @@ import java.util.List;
 public interface LoanTDao extends JpaRepository<LoanT, Integer> {
     List<LoanT> findByUserNameOrderByDateDesc(String userName);
 
+    List<LoanT> findByWalletAndAccountOrderByCreationDateTimeDesc(String wallet, String loanRef);
+
+    List<LoanT> findByAccountOrderByCreationDateTimeDesc(String loanRef);
+
+
     List<LoanT> findByStatusAndAmountGreaterThanAndDate(TransactionStatus success, double v, Date date);
 
     List<LoanT> findByStatusAndAmountGreaterThanAndDateLessThanEqualAndDateGreaterThanEqual(TransactionStatus success, double v, Date dateTo, Date dateFrom);

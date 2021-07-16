@@ -1,10 +1,7 @@
 package com.qualitychemicals.qcipayments.transaction.rest.v1;
 
 import com.qualitychemicals.qcipayments.transaction.converter.ShareTConverter;
-import com.qualitychemicals.qcipayments.transaction.dto.DateSavingDto;
-import com.qualitychemicals.qcipayments.transaction.dto.DateTransactions;
-import com.qualitychemicals.qcipayments.transaction.dto.ShareTDto;
-import com.qualitychemicals.qcipayments.transaction.dto.SharesTransactionsDto;
+import com.qualitychemicals.qcipayments.transaction.dto.*;
 import com.qualitychemicals.qcipayments.transaction.service.ShareTService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -30,7 +27,23 @@ public class ShareTController {
         return new ResponseEntity<>(shareTConverter.entityToDto(shareTService.mobileShares(shareTDto)), HttpStatus.OK);
     }
 
-    @GetMapping("/shareTransactions/{userName}")
+    @GetMapping("/allByWallet/{wallet}")
+    public ResponseEntity<SharesTransactionsDto> allByWallet(@PathVariable String wallet) {
+
+        return new ResponseEntity<>(new SharesTransactionsDto(shareTConverter.entityToDto
+                (shareTService.allByWallet(wallet))), HttpStatus.OK);
+
+    }
+    @GetMapping("/recentByWallet/{wallet}")
+    public ResponseEntity<SharesTransactionsDto> last5ByWallet(@PathVariable String wallet) {
+
+        return new ResponseEntity<>(new SharesTransactionsDto(shareTConverter.entityToDto
+                (shareTService.last5ByWallet(wallet))), HttpStatus.OK);
+
+    }
+
+
+    @GetMapping("/shareTransactions/{userName}")//admin
     public ResponseEntity<SharesTransactionsDto> shareTransactions(@PathVariable String userName) {
 
         return new ResponseEntity<>(new SharesTransactionsDto(shareTConverter.entityToDto
@@ -38,7 +51,7 @@ public class ShareTController {
 
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("/getAll")//admin
     public ResponseEntity<SharesTransactionsDto> getAll() {
 
         return new ResponseEntity<>(new SharesTransactionsDto(shareTConverter.entityToDto

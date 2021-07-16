@@ -9,10 +9,14 @@ import java.util.List;
 
 public interface SavingTService {
     SavingT mobileSaving(SavingTDto savingTDto);
+    List<SavingT> allByWallet(String wallet);
+    List<SavingT> last5ByWallet(String wallet);
+
 
     List<SavingT> savingTransactions(String userName);
-
     List<SavingT> getAll();
+
+
 
     List<SavingT> withdrawRequests();
 

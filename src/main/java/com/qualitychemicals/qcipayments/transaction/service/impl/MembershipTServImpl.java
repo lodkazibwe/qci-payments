@@ -42,13 +42,25 @@ public class MembershipTServImpl implements MembershipTService {
         MembershipT membershipT = membershipTConverter.dtoToEntity(membershipTDto);
         membershipT.setStatus(TransactionStatus.SUCCESS);
 
-        return transactionDao.save(membershipT);
+        return membershipTDao.save(membershipT);
 
     }
 
     @Override
+    public List<MembershipT> allByWallet(String wallet) {
+        return membershipTDao.findByWalletOrderByCreationDateTimeDesc(wallet) ;
+    }
+
+    @Override
+    public List<MembershipT> last5ByWallet(String wallet) {
+        return membershipTDao.findFirst5ByWalletOrderByCreationDateTimeDesc(wallet);
+    }
+
+
+
+    @Override
     public List<MembershipT> membershipTrans(String userName) {
-        return membershipTDao.findByUserName(userName);
+        return membershipTDao.findByUserNameOrderByCreationDateTimeDesc(userName);
 
     }
 
@@ -57,6 +69,7 @@ public class MembershipTServImpl implements MembershipTService {
         return membershipTDao.findAll();
     }
 
+    /***++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++**/
     @Override
     public double totalMembership(Date date) {
         List<MembershipT> membershipTS = membershipTDao.findByStatusAndAmountGreaterThanAndDate

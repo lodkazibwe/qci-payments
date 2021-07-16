@@ -3,7 +3,6 @@ package com.qualitychemicals.qcipayments.transaction.rest.v1;
 import com.qualitychemicals.qcipayments.transaction.converter.LoanTConverter;
 import com.qualitychemicals.qcipayments.transaction.converter.TransactionConverter;
 import com.qualitychemicals.qcipayments.transaction.dto.*;
-import com.qualitychemicals.qcipayments.transaction.model.TransactionType;
 import com.qualitychemicals.qcipayments.transaction.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,6 +27,21 @@ public class TransactionController {
     public ResponseEntity<LoanTransactionsDto> loanTransactions(@PathVariable int loanId) {
         return new ResponseEntity<>(new LoanTransactionsDto(loanTConverter.entityToDto
                 (transactionService.loanTransactions(loanId))), HttpStatus.OK);
+
+    }
+
+    @GetMapping("/allByWallet/{wallet}")//admin
+    public ResponseEntity<AllTransactions> allByWallet(@PathVariable String wallet) {
+
+        return new ResponseEntity<>(new AllTransactions(transactionConverter.entityToDto
+                (transactionService.allByWallet(wallet))), HttpStatus.OK);
+
+    }
+    @GetMapping("/recentByWallet/{wallet}")
+    public ResponseEntity<AllTransactions> last5ByWallet(@PathVariable String wallet) {
+
+        return new ResponseEntity<>(new AllTransactions(transactionConverter.entityToDto
+                (transactionService.last5ByWallet(wallet))), HttpStatus.OK);
 
     }
 
@@ -59,9 +73,4 @@ public class TransactionController {
     }
 
 
-    /*@PutMapping("/admin/payrollRepayment")
-    public ResponseEntity<List<TransactionDto>> payrollRepayment(@RequestBody DeductionScheduleDTO deductionSchedule){
-
-        return null;
-    }*/
 }

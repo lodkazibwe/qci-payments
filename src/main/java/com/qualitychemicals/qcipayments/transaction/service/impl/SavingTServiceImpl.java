@@ -40,9 +40,18 @@ public class SavingTServiceImpl implements SavingTService {
         SavingT savingT = savingTConverter.dtoToEntity(savingTDto);
         savingT.setStatus(TransactionStatus.SUCCESS);
         logger.info("saving transaction...");
-        return transactionDao.save(savingT);
+        return savingTDao.save(savingT);
     }
 
+    @Override
+    public List<SavingT> allByWallet(String wallet) {
+        return savingTDao.findByWalletOrderByCreationDateTimeDesc(wallet);
+    }
+
+    @Override
+    public List<SavingT> last5ByWallet(String wallet) {
+        return savingTDao.findFirst5ByWalletOrderByCreationDateTimeDesc(wallet);
+    }
 
     @Override
     public List<SavingT> savingTransactions(String userName) {

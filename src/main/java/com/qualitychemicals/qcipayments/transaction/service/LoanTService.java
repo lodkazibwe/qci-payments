@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface LoanTService {
     LoanT saveLoanT(LoanTDto loanTDto);
+    List<LoanT> allByWallet(String wallet, String loan);
+    List<LoanT> allByLoan(String loan);
 
 
     List<LoanT> loanTransactions(String userName);
