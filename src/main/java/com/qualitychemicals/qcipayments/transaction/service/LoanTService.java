@@ -10,10 +10,9 @@ import java.util.List;
 public interface LoanTService {
     LoanT saveLoanT(LoanTDto loanTDto);
     List<LoanT> allByWallet(String wallet, String loan);
+    List<LoanT> allByWallet(String wallet);
+    List<LoanT> recentTransactions(String wallet);
     List<LoanT> allByLoan(String loan);
-
-
-    List<LoanT> loanTransactions(String userName);
 
     List<LoanT> getAll(String userName);
 

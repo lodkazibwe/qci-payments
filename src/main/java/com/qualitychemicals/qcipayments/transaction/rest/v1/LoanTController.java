@@ -37,6 +37,23 @@ public class LoanTController {
                 (loanTService.allByWallet(wallet, loanRef))), HttpStatus.OK);
 
     }
+
+    @GetMapping("/allByWallet/{wallet}")
+    public ResponseEntity<LoanTransactionsDto> allByWallet(@PathVariable String wallet) {
+
+        return new ResponseEntity<>(new LoanTransactionsDto(loanTConverter.entityToDto
+                (loanTService.allByWallet(wallet))), HttpStatus.OK);
+
+    }
+
+    @GetMapping("/recentByWallet/{wallet}")
+    public ResponseEntity<LoanTransactionsDto> recentByWallet(@PathVariable String wallet) {
+
+        return new ResponseEntity<>(new LoanTransactionsDto(loanTConverter.entityToDto
+                (loanTService.recentTransactions(wallet))), HttpStatus.OK);
+
+    }
+
     @GetMapping("/allByLoanRef/{loanRef}")
     public ResponseEntity<LoanTransactionsDto> allByLoanRef(@PathVariable String loanRef) {
 
@@ -49,7 +66,7 @@ public class LoanTController {
     public ResponseEntity<LoanTransactionsDto> loanTransactions(@PathVariable String userName) {
 
         return new ResponseEntity<>(new LoanTransactionsDto(loanTConverter.entityToDto
-                (loanTService.loanTransactions(userName))), HttpStatus.OK);
+                (loanTService.getAll(userName))), HttpStatus.OK);
 
     }
 

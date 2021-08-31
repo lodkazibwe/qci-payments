@@ -23,4 +23,8 @@ public interface LoanTDao extends JpaRepository<LoanT, Integer> {
 
     List<LoanT> findByLoanId(int loanId);
 
+    List<LoanT> findByWalletOrderByCreationDateTimeDesc(String wallet);
+
+    List<LoanT> findFirst5ByWalletOrderByCreationDateTimeDesc(String wallet);
+
 }
