@@ -4,6 +4,7 @@ import com.qualitychemicals.qcipayments.transaction.dto.LoanTDto;
 import com.qualitychemicals.qcipayments.transaction.model.LoanT;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +24,8 @@ public class LoanTConverter {
         loanTDto.setStatus(loanT.getStatus());
         loanTDto.setLoanId(loanT.getLoanId());
         loanTDto.setTransactionType(loanT.getTransactionType());
+        loanTDto.setLoanRef(loanT.getLoanRef());
+        loanTDto.setCreationDateTime(loanT.getCreationDateTime());
         return loanTDto;
 
     }
@@ -38,6 +41,8 @@ public class LoanTConverter {
         loanT.setWallet(loanTDto.getWallet());
         loanT.setNarrative(loanTDto.getNarrative());
         loanT.setTransactionType(loanTDto.getTransactionType());
+        loanT.setLoanRef(loanTDto.getLoanRef());
+        loanT.setCreationDateTime(new Date());
         return loanT;
 
     }

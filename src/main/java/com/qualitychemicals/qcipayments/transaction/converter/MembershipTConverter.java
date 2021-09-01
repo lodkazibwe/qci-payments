@@ -4,6 +4,7 @@ import com.qualitychemicals.qcipayments.transaction.dto.MembershipTDto;
 import com.qualitychemicals.qcipayments.transaction.model.MembershipT;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,6 +38,7 @@ public class MembershipTConverter {
         membershipT.setAccount(membershipTDto.getAccount());
         membershipT.setWallet(membershipTDto.getWallet());
         membershipT.setTransactionType(membershipTDto.getTransactionType());
+        membershipT.setCreationDateTime(new Date());
         return membershipT;
 
     }

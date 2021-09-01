@@ -4,6 +4,7 @@ import com.qualitychemicals.qcipayments.transaction.dto.ShareTDto;
 import com.qualitychemicals.qcipayments.transaction.model.ShareT;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,6 +42,7 @@ public class ShareTConverter {
         shareT.setAccount(shareTDto.getAccount());
         shareT.setShareValue(shareTDto.getShareValue());
         shareT.setTransactionType(shareTDto.getTransactionType());
+        shareT.setCreationDateTime(new Date());
         return shareT;
     }
 

@@ -4,6 +4,7 @@ import com.qualitychemicals.qcipayments.transaction.dto.TransactionDto;
 import com.qualitychemicals.qcipayments.transaction.model.Transaction;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,7 +34,7 @@ public class TransactionConverter {
         transaction.setAccount(transactionDto.getAccount());
         transaction.setNarrative(transactionDto.getNarrative());
         transaction.setUserName(transactionDto.getUserName());
-        transaction.setCreationDateTime(transactionDto.getCreationDateTime());
+        transaction.setCreationDateTime(new Date());
         transaction.setWallet(transactionDto.getWallet());
         transaction.setTransactionType(transactionDto.getTransactionType());
         return transaction;
