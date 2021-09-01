@@ -14,5 +14,5 @@ import javax.persistence.Entity;
 @Entity
 public class LoanT extends Transaction {
     private int loanId;
-    private String loanRef;
+    //private String loanRef;
 }
