@@ -29,7 +29,7 @@ public class TransactionDto {
     @NotNull(message = "userName cannot be Blank")
     private String wallet;
     private TransactionStatus status;
-    @JsonFormat(shape = JsonFormat.Shape.STRING,  locale = "pt-BR", timezone = "EAT")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss",  locale = "pt-BR", timezone = "EAT")
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDateTime;
     private String transactionType;
