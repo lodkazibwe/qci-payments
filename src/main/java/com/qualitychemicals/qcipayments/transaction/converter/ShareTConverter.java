@@ -32,7 +32,7 @@ public class ShareTConverter {
 
     public ShareT dtoToEntity(ShareTDto shareTDto) {
         ShareT shareT = new ShareT();
-        shareT.setDate(shareTDto.getDate());
+        shareT.setDate(new Date());
         shareT.setAmount(shareTDto.getAmount());
         shareT.setShares(shareTDto.getShares());
         shareT.setNarrative(shareTDto.getNarrative());

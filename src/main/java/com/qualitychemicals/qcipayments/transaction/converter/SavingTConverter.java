@@ -29,7 +29,7 @@ public class SavingTConverter {
 
     public SavingT dtoToEntity(SavingTDto savingTDto) {
         SavingT savingT = new SavingT();
-        savingT.setDate(savingTDto.getDate());
+        savingT.setDate(new Date());
         savingT.setAccountId(savingTDto.getAccountId());
         savingT.setAmount(savingTDto.getAmount());
         savingT.setUserName(savingTDto.getUserName());

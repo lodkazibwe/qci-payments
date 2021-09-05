@@ -34,7 +34,7 @@ public class LoanTConverter {
         LoanT loanT = new LoanT();
         loanT.setAccount(loanTDto.getAccount());
         loanT.setAmount(loanTDto.getAmount());
-        loanT.setDate(loanTDto.getDate());
+        loanT.setDate(new Date());
         loanT.setStatus(loanTDto.getStatus());
         loanT.setUserName(loanTDto.getUserName());
         loanT.setLoanId(loanTDto.getLoanId());

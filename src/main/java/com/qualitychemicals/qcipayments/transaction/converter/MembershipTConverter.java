@@ -32,7 +32,7 @@ public class MembershipTConverter {
         membershipT.setStatus(membershipTDto.getStatus());
         membershipT.setYear(membershipTDto.getYear());
         membershipT.setAmount(membershipTDto.getAmount());
-        membershipT.setDate(membershipTDto.getDate());
+        membershipT.setDate(new Date());
         membershipT.setUserName(membershipTDto.getUserName());
         membershipT.setNarrative(membershipTDto.getNarrative());
         membershipT.setAccount(membershipTDto.getAccount());

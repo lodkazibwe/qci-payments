@@ -29,7 +29,7 @@ public class TransactionConverter {
     public Transaction dtoToEntity(TransactionDto transactionDto) {
         Transaction transaction = new Transaction();
         transaction.setAmount(transactionDto.getAmount());
-        transaction.setDate(transactionDto.getDate());
+        transaction.setDate(new Date());
         transaction.setStatus(transactionDto.getStatus());
         transaction.setAccount(transactionDto.getAccount());
         transaction.setNarrative(transactionDto.getNarrative());
