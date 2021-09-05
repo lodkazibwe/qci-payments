@@ -19,7 +19,7 @@ public class Transaction {
     @GeneratedValue
     private int id;
     @Temporal(TemporalType.DATE)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", locale = "pt-BR", timezone = "EAT")
     private Date date;
     private double amount;
     private String account;
@@ -28,7 +28,7 @@ public class Transaction {
     private String narrative;
     @Enumerated(EnumType.STRING)
     private TransactionStatus status;
-    @JsonFormat(shape = JsonFormat.Shape.STRING )//locale = "pt-BR", timezone = "EAT"
+    @JsonFormat(shape = JsonFormat.Shape.STRING, locale = "pt-BR", timezone = "EAT")
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDateTime;
     private String transactionType;
