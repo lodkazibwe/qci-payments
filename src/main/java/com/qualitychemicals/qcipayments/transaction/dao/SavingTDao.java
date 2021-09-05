@@ -12,9 +12,9 @@ import java.util.List;
 public interface SavingTDao extends JpaRepository<SavingT, Integer> {
     List<SavingT> findByUserNameOrderByDateDesc(String userName);
 
-    List<SavingT> findByWalletOrderByCreationDateTimeDesc(String wallet);
+    List<SavingT> findByWalletOrderByIdDesc(String wallet);
 
-    List<SavingT> findFirst5ByWalletOrderByCreationDateTimeDesc(String wallet);
+    List<SavingT> findFirst5ByWalletOrderByIdDesc(String wallet);
 
     //List<RequiredAccountEntity> findByDebitAccNoEqualsAndDateLessThanEqualAndGreaterThanEqualAndTnxAmtEquals
     // (String debitAccNo, Date fromDate, Date toDate, String tnxAmtFlag);

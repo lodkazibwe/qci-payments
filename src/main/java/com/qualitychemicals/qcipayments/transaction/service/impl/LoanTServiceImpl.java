@@ -46,17 +46,17 @@ public class LoanTServiceImpl implements LoanTService {
 
     @Override
     public List<LoanT> allByWallet(String wallet, String loan) {
-        return loanTDao.findByWalletAndAccountOrderByCreationDateTimeDesc(wallet, loan);
+        return loanTDao.findByWalletAndAccountOrderByIdDesc(wallet, loan);
     }
 
     @Override
     public List<LoanT> allByWallet(String wallet) {
-        return loanTDao.findByWalletOrderByCreationDateTimeDesc(wallet);
+        return loanTDao.findByWalletOrderByIdDesc(wallet);
     }
 
     @Override
     public List<LoanT> recentTransactions(String wallet) {
-        return loanTDao.findFirst5ByWalletOrderByCreationDateTimeDesc(wallet);
+        return loanTDao.findFirst5ByWalletOrderByIdDesc(wallet);
     }
 
     @Override

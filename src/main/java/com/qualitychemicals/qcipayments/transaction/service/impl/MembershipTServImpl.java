@@ -48,19 +48,19 @@ public class MembershipTServImpl implements MembershipTService {
 
     @Override
     public List<MembershipT> allByWallet(String wallet) {
-        return membershipTDao.findByWalletOrderByCreationDateTimeDesc(wallet) ;
+        return membershipTDao.findByWalletOrderByIdDesc(wallet) ;
     }
 
     @Override
     public List<MembershipT> last5ByWallet(String wallet) {
-        return membershipTDao.findFirst5ByWalletOrderByCreationDateTimeDesc(wallet);
+        return membershipTDao.findFirst5ByWalletOrderByIdDesc(wallet);
     }
 
 
 
     @Override
     public List<MembershipT> membershipTrans(String userName) {
-        return membershipTDao.findByUserNameOrderByCreationDateTimeDesc(userName);
+        return membershipTDao.findByUserNameOrderByIdDesc(userName);
 
     }
 

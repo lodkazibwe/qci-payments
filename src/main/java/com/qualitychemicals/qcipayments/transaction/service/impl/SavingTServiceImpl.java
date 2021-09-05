@@ -45,12 +45,12 @@ public class SavingTServiceImpl implements SavingTService {
 
     @Override
     public List<SavingT> allByWallet(String wallet) {
-        return savingTDao.findByWalletOrderByCreationDateTimeDesc(wallet);
+        return savingTDao.findByWalletOrderByIdDesc(wallet);
     }
 
     @Override
     public List<SavingT> last5ByWallet(String wallet) {
-        return savingTDao.findFirst5ByWalletOrderByCreationDateTimeDesc(wallet);
+        return savingTDao.findFirst5ByWalletOrderByIdDesc(wallet);
     }
 
     @Override

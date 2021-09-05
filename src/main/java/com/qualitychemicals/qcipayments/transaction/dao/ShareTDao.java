@@ -13,9 +13,9 @@ public interface ShareTDao extends JpaRepository<ShareT, Integer> {
 
     List<ShareT> findByUserNameOrderByDateDesc(String userName);
 
-    List<ShareT> findByWalletOrderByCreationDateTimeDesc(String wallet);
+    List<ShareT> findByWalletOrderByIdDesc(String wallet);
 
-    List<ShareT> findFirst5ByWalletOrderByCreationDateTimeDesc(String wallet);
+    List<ShareT> findFirst5ByWalletOrderByIdDesc(String wallet);
 
 
 

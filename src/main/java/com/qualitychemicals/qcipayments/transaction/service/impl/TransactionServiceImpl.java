@@ -38,12 +38,12 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public List<Transaction> allByWallet(String wallet) {
-        return transactionDao.findByWalletOrderByCreationDateTimeDesc(wallet);
+        return transactionDao.findByWalletOrderByIdDesc(wallet);
     }
 
     @Override
     public List<Transaction> last5ByWallet(String wallet) {
-        return transactionDao.findFirst5ByWalletOrderByCreationDateTimeDesc(wallet);
+        return transactionDao.findFirst5ByWalletOrderByIdDesc(wallet);
     }
 
     @Override

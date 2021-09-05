@@ -12,10 +12,9 @@ import java.util.List;
 public interface LoanTDao extends JpaRepository<LoanT, Integer> {
     List<LoanT> findByUserNameOrderByDateDesc(String userName);
 
-    List<LoanT> findByWalletAndAccountOrderByCreationDateTimeDesc(String wallet, String loanRef);
+    List<LoanT> findByWalletAndAccountOrderByIdDesc(String wallet, String loanRef);
 
     List<LoanT> findByAccountOrderByCreationDateTimeDesc(String loanRef);
-
 
     List<LoanT> findByStatusAndAmountGreaterThanAndDate(TransactionStatus success, double v, Date date);
 
@@ -23,8 +22,8 @@ public interface LoanTDao extends JpaRepository<LoanT, Integer> {
 
     List<LoanT> findByLoanId(int loanId);
 
-    List<LoanT> findByWalletOrderByCreationDateTimeDesc(String wallet);
+    List<LoanT> findByWalletOrderByIdDesc(String wallet);
 
-    List<LoanT> findFirst5ByWalletOrderByCreationDateTimeDesc(String wallet);
+    List<LoanT> findFirst5ByWalletOrderByIdDesc(String wallet);
 
 }

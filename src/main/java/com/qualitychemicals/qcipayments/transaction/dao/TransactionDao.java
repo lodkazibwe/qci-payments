@@ -12,9 +12,9 @@ public interface TransactionDao extends JpaRepository<Transaction, Integer> {
 
     List<Transaction> findByUserNameOrderByDateDesc(String userName);
 
-    List<Transaction> findByWalletOrderByCreationDateTimeDesc(String wallet);
+    List<Transaction> findByWalletOrderByIdDesc(String wallet);
 
-    List<Transaction> findFirst5ByWalletOrderByCreationDateTimeDesc(String wallet);
+    List<Transaction> findFirst5ByWalletOrderByIdDesc(String wallet);
 
 
 

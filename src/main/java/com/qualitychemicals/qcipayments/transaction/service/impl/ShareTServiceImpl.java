@@ -47,12 +47,12 @@ public class ShareTServiceImpl implements ShareTService {
 
     @Override
     public List<ShareT> allByWallet(String wallet) {
-        return shareTDao.findByWalletOrderByCreationDateTimeDesc(wallet);
+        return shareTDao.findByWalletOrderByIdDesc(wallet);
     }
 
     @Override
     public List<ShareT> last5ByWallet(String wallet) {
-        return shareTDao.findFirst5ByWalletOrderByCreationDateTimeDesc(wallet);
+        return shareTDao.findFirst5ByWalletOrderByIdDesc(wallet);
     }
 
     @Override
