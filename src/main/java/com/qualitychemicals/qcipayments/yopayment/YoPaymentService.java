@@ -7,6 +7,7 @@ import com.qualitychemicals.qcipayments.security.appConfig.AppConfigReader;
 import com.qualitychemicals.qcipayments.transaction.dto.TransactionDto;
 import com.qualitychemicals.qcipayments.transaction.model.Transaction;
 import com.qualitychemicals.qcipayments.transaction.model.TransactionStatus;
+import com.qualitychemicals.qcipayments.transaction.model.TransactionType;
 import com.qualitychemicals.qcipayments.transaction.service.TransactionService;
 import com.qualitychemicals.qcipayments.yopayment.externalTransaction.ExternalTransactionService;
 import com.qualitychemicals.qcipayments.yopayment.externalTransaction.model.ExternalTransaction;
@@ -102,7 +103,7 @@ public class YoPaymentService {
                    Transaction transaction =generateTransaction(externalTransaction);
                    logger.info("transaction successful...");
                    transaction.setStatus(TransactionStatus.SUCCESS);
-                   transaction.setTransactionType("deposit");
+                   transaction.setTransactionType(TransactionType.MOBILE);
                    transaction.setNarrative("deposit from " + transaction.getNarrative());
                    transaction.setAmount(transaction.getAmount() * -1);
                    //transaction.setExternalId(externalTransaction.getId());
