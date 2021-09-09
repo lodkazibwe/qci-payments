@@ -31,7 +31,7 @@ public class Transaction {
     @JsonFormat(shape = JsonFormat.Shape.STRING, locale = "pt-BR", timezone = "EAT")
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDateTime;
-    private String transactionType;
+    private TransactionType transactionType;
     //private int externalId;
 
    // @Enumerated(EnumType.STRING)

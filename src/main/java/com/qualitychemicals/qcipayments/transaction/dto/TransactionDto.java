@@ -2,6 +2,7 @@ package com.qualitychemicals.qcipayments.transaction.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.qualitychemicals.qcipayments.transaction.model.TransactionStatus;
+import com.qualitychemicals.qcipayments.transaction.model.TransactionType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,6 +33,6 @@ public class TransactionDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss",  locale = "pt-BR", timezone = "EAT")
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDateTime;
-    private String transactionType;
+    private TransactionType transactionType;
 
 }

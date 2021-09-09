@@ -38,7 +38,6 @@ public class SavingTServiceImpl implements SavingTService {
     public SavingT mobileSaving(SavingTDto savingTDto) {
         logger.info("converting...");
         SavingT savingT = savingTConverter.dtoToEntity(savingTDto);
-        savingT.setStatus(TransactionStatus.SUCCESS);
         logger.info("saving transaction...");
         return savingTDao.save(savingT);
     }

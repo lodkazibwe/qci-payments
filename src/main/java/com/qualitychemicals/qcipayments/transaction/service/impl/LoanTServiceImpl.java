@@ -39,7 +39,7 @@ public class LoanTServiceImpl implements LoanTService {
     public LoanT saveLoanT(LoanTDto loanTDto) {
         logger.info("setting transaction...");
         LoanT loanT = loanTConverter.dtoToEntity(loanTDto);
-        loanT.setStatus(TransactionStatus.SUCCESS);
+        //loanT.setStatus(TransactionStatus.SUCCESS);
         return loanTDao.save(loanT);
 
     }
