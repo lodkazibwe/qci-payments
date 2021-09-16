@@ -10,9 +10,9 @@ import java.util.List;
 
 @Repository
 public interface SavingTDao extends JpaRepository<SavingT, Integer> {
-    List<SavingT> findByUserNameOrderByDateDesc(String userName);
+    List<SavingT> findByUserNameAndStatusOrderByIdDesc(String userName, TransactionStatus status);
 
-    List<SavingT> findByWalletOrderByIdDesc(String wallet);
+    List<SavingT> findByWalletAndStatusOrderByIdDesc(String wallet, TransactionStatus status);
 
     List<SavingT> findFirst5ByWalletOrderByIdDesc(String wallet);
 

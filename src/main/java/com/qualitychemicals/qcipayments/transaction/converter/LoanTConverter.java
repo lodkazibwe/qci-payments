@@ -24,7 +24,7 @@ public class LoanTConverter {
         loanTDto.setStatus(loanT.getStatus());
         loanTDto.setLoanId(loanT.getLoanId());
         loanTDto.setTransactionType(loanT.getTransactionType());
-        //loanTDto.setLoanRef(loanT.getLoanRef());
+        loanTDto.setClassification(loanT.getClassification());
         loanTDto.setCreationDateTime(loanT.getCreationDateTime());
         return loanTDto;
 
@@ -41,7 +41,7 @@ public class LoanTConverter {
         loanT.setWallet(loanTDto.getWallet());
         loanT.setNarrative(loanTDto.getNarrative());
         loanT.setTransactionType(loanTDto.getTransactionType());
-        //loanT.setLoanRef(loanTDto.getLoanRef());
+        loanT.setClassification(loanTDto.getClassification());
         loanT.setCreationDateTime(new Date());
         return loanT;
 

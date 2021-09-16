@@ -23,6 +23,7 @@ public class SavingTConverter {
         savingTDto.setWallet(savingT.getWallet());
         savingTDto.setCreationDateTime(savingT.getCreationDateTime());
         savingTDto.setTransactionType(savingT.getTransactionType());
+        savingTDto.setClassification(savingT.getClassification());
         return savingTDto;
 
     }
@@ -38,6 +39,7 @@ public class SavingTConverter {
         savingT.setAccount(savingTDto.getAccount());
         savingT.setWallet(savingTDto.getWallet());
         savingT.setTransactionType(savingTDto.getTransactionType());
+        savingT.setClassification(savingTDto.getClassification());
         savingT.setCreationDateTime(new Date());
         return savingT;
 

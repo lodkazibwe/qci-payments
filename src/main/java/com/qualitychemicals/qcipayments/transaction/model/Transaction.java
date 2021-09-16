@@ -32,6 +32,7 @@ public class Transaction {
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDateTime;
     private TransactionType transactionType;
+    private String classification;
     //private int externalId;
 
    // @Enumerated(EnumType.STRING)

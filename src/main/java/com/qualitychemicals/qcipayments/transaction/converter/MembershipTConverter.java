@@ -22,6 +22,7 @@ public class MembershipTConverter {
         membershipTDto.setAccount(membershipT.getAccount());
         membershipTDto.setNarrative(membershipT.getNarrative());
         membershipTDto.setWallet(membershipT.getWallet());
+        membershipTDto.setClassification(membershipT.getClassification());
         membershipTDto.setTransactionType(membershipT.getTransactionType());
         return membershipTDto;
 
@@ -38,6 +39,7 @@ public class MembershipTConverter {
         membershipT.setAccount(membershipTDto.getAccount());
         membershipT.setWallet(membershipTDto.getWallet());
         membershipT.setTransactionType(membershipTDto.getTransactionType());
+        membershipT.setClassification(membershipTDto.getClassification());
         membershipT.setCreationDateTime(new Date());
         return membershipT;
 

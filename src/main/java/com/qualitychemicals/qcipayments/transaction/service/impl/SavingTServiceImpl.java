@@ -44,7 +44,7 @@ public class SavingTServiceImpl implements SavingTService {
 
     @Override
     public List<SavingT> allByWallet(String wallet) {
-        return savingTDao.findByWalletOrderByIdDesc(wallet);
+        return savingTDao.findByWalletAndStatusOrderByIdDesc(wallet, TransactionStatus.SUCCESS);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class SavingTServiceImpl implements SavingTService {
 
     @Override
     public List<SavingT> savingTransactions(String userName) {
-        return savingTDao.findByUserNameOrderByDateDesc(userName);
+        return savingTDao.findByUserNameAndStatusOrderByIdDesc(userName, TransactionStatus.SUCCESS);
     }
 
     @Override

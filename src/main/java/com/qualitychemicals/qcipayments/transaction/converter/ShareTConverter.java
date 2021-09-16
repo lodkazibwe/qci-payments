@@ -25,6 +25,7 @@ public class ShareTConverter {
         shareTDto.setAccount(shareT.getAccount());
         shareTDto.setWallet(shareT.getWallet());
         shareTDto.setNarrative(shareT.getNarrative());
+        shareTDto.setClassification(shareT.getClassification());
         shareTDto.setTransactionType(shareT.getTransactionType());
         return shareTDto;
 
@@ -42,6 +43,7 @@ public class ShareTConverter {
         shareT.setAccount(shareTDto.getAccount());
         shareT.setShareValue(shareTDto.getShareValue());
         shareT.setTransactionType(shareTDto.getTransactionType());
+        shareT.setClassification(shareTDto.getClassification());
         shareT.setCreationDateTime(new Date());
         return shareT;
     }

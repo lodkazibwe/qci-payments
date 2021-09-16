@@ -22,6 +22,7 @@ public class TransactionConverter {
         transactionDto.setNarrative(transaction.getNarrative());
         transactionDto.setCreationDateTime(transaction.getCreationDateTime());
         transactionDto.setTransactionType(transaction.getTransactionType());
+        transactionDto.setClassification(transaction.getClassification());
         return transactionDto;
 
     }
@@ -37,6 +38,7 @@ public class TransactionConverter {
         transaction.setCreationDateTime(new Date());
         transaction.setWallet(transactionDto.getWallet());
         transaction.setTransactionType(transactionDto.getTransactionType());
+        transaction.setClassification(transactionDto.getClassification());
         return transaction;
 
     }
