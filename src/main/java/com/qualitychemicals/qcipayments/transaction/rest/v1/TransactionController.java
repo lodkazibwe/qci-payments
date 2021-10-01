@@ -3,13 +3,16 @@ package com.qualitychemicals.qcipayments.transaction.rest.v1;
 import com.qualitychemicals.qcipayments.transaction.converter.LoanTConverter;
 import com.qualitychemicals.qcipayments.transaction.converter.TransactionConverter;
 import com.qualitychemicals.qcipayments.transaction.dto.*;
+import com.qualitychemicals.qcipayments.transaction.model.TransactionType;
 import com.qualitychemicals.qcipayments.transaction.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
 
 
 @CrossOrigin(maxAge = 3600)
@@ -52,8 +55,16 @@ public class TransactionController {
 
     }
 
+    @GetMapping("/getAll/{dateFrom}/{dateTo}")
+    public ResponseEntity<AllTransactions> allTransactions(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateFrom,
+                                                           @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd")Date dateTo) {
+        return new ResponseEntity<>(new AllTransactions(transactionConverter.entityToDto
+                (transactionService.allTransactions(dateFrom, dateTo))), HttpStatus.OK);
+
+    }
+
     @GetMapping("/getAll/{transactionType}")
-    public ResponseEntity<AllTransactions> allByType(@PathVariable String transactionType) {
+    public ResponseEntity<AllTransactions> allByType(@PathVariable TransactionType transactionType) {
         return new ResponseEntity<>(new AllTransactions(transactionConverter.entityToDto
                 (transactionService.allByType(transactionType))), HttpStatus.OK);
 

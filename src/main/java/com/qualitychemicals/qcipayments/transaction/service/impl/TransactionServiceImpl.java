@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -70,10 +71,17 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public List<Transaction> allByType(String transactionType) {
+    public List<Transaction> allByType(TransactionType transactionType) {
         return transactionDao.findByTransactionType(transactionType);
     }
 
+    @Override
+    public List<Transaction> allTransactions(Date date) {
+        return transactionDao.findByDate(date);
+    }
 
-
+    @Override
+    public List<Transaction> allTransactions(Date date1, Date date2) {
+        return transactionDao.findByDateGreaterThanEqualAndDateLessThanEqual(date1, date2);
+    }
 }
